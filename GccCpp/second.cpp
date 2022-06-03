@@ -1,0 +1,15 @@
+///////////////////////////////////////////////////////////////////////////////
+//                         second.cpp
+// g++ first.cpp second.cpp
+// g++ run2 first.cpp second.cpp
+//
+// g++ -c first.cpp
+// g++ -c second.cpp
+// g++ -o run2 first.o second.o
+///////////////////////////////////////////////////////////////////////////////
+
+#include<stdio.h>
+
+extern "C" int Add(int a , int b){
+  return a + b;
+}

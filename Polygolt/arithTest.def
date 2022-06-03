@@ -1,0 +1,10 @@
+; Filename :-  arithTest.def
+; Name of the library
+Arithmetic Test Library
+
+;------------List of exported function
+EXPORTS
+  Add
+  Sub
+  Mul
+  Div

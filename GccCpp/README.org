@@ -1,0 +1,18 @@
+
+* GccCpp
+
+ - What is BIN_FUNCTION
+
+* Ployglot
+
+- why function args prefered to push to stack using __stdcall ?
+- what is __declspec
+- why ms prefers such way
+- meaning of this line
+
+#+begin_src c
+  int (__stdcall* AddFunc)(double , double ) = (int (__stdcall*)(double , double))Add;
+#+end_src
+
+
+- Why barckets are different in teh rhs

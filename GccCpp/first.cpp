@@ -1,0 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+//                          first
+//g++ -o run first.cpp
+///////////////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+
+extern "C" int Add(int a , int b);
+extern "C" int Mul(int a , int b);
+
+int main (void)
+{
+
+  printf ("Hello World %d  %d  \n", Add(100,1 ) , Mul(10,100));
+}
