@@ -4,12 +4,15 @@
 #include <stdexcept>
 #define AST_H
 namespace slang {
+
 class RuntimeContext {
 public:
   RuntimeContext(){};
 };
 
 enum Operator { OP_PLUS, OP_MINUS, OP_MUL, OP_DIV };
+
+// Expression
 
 class Exp {
 
@@ -38,11 +41,6 @@ public:
   ~BinaryExp();
 };
 
-// 1 + (1 + 2)
-//+ 1
-// -1
-// BinaryExp( NUM(1), BinaryExp( NUM(1), NUM(2)))
-
 class UnaryExp : public Exp {
   Exp *exp;
   Operator op;
@@ -53,6 +51,33 @@ public:
   ~UnaryExp();
 };
 
-} // namespace slang
+// Statements
 
+class Stmt {
+
+public:
+  Stmt();
+  virtual double evaluate(RuntimeContext *ctx) = 0;
+  virtual ~Stmt();
+};
+
+class PrintStatement : Stmt {
+  Exp *exp;
+
+public:
+  PrintStatement(Exp *exp);
+  double evaluate(RuntimeContext *ctx);
+  ~PrintStatement();
+};
+
+class PrintLnStatement : Stmt {
+  Exp *exp;
+
+public:
+  PrintLnStatement(Exp *exp);
+  double evaluate(RuntimeContext *ctx);
+  ~PrintLnStatement();
+};
+
+} // namespace slang
 #endif /* AST_H */

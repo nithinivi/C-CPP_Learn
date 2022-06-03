@@ -1,7 +1,10 @@
-#include "ast.h"
-#include "lexer.h"
+
 #include <cstring>
 #include <iostream>
+
+#include "ast.h"
+#include "builder.h"
+#include "lexer.h"
 
 using namespace slang;
 
@@ -37,4 +40,16 @@ void callSlang() {
   delete (exp);
 }
 
-int main() { callSlang(); }
+void testParser() {
+  char expStr[] = "(5/3) + 10";
+  ExpressionBuilder builder(expStr);
+  Exp *exp = builder.getExpression();
+  if (exp) {
+    std::cout << exp->evaluate(NULL) << std::endl;
+    delete exp;
+  } else {
+    std::cout << "Unable to parse the expression: " << expStr << std::endl;
+  }
+}
+
+int main() { testParser(); }

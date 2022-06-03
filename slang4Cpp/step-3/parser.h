@@ -10,6 +10,8 @@ using namespace slang;
 
 class RDParser : public Lexer {
   Token currentToken;
+  Token lastToken;
+  Token getNext();
 
 public:
   RDParser(char *exp);
@@ -19,6 +21,10 @@ public:
   Exp *Expr();
   Exp *Term();
   Exp *Factor();
+
+  Stmt *Statement();
+  Stmt *ParsePrintStatement();
+  Stmt *ParsePrintLnStatement();
 };
 
 #endif /* PARSER_H */
