@@ -13,10 +13,6 @@ class RDParser : public Lexer {
   Token lastToken;
   Token getNext();
 
-public:
-  RDParser(char *exp);
-  ~RDParser();
-
   Exp *CallExpr();
   Exp *Expr();
   Exp *Term();
@@ -25,6 +21,12 @@ public:
   Stmt *Statement();
   Stmt *ParsePrintStatement();
   Stmt *ParsePrintLnStatement();
+
+public:
+  RDParser(char *exp);
+  ~RDParser();
+
+  Stmt[] Parse();
 };
 
 #endif /* PARSER_H */

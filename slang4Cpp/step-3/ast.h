@@ -61,7 +61,7 @@ public:
   virtual ~Stmt();
 };
 
-class PrintStatement : Stmt {
+class PrintStatement : public Stmt {
   Exp *exp;
 
 public:
@@ -70,7 +70,7 @@ public:
   ~PrintStatement();
 };
 
-class PrintLnStatement : Stmt {
+class PrintLnStatement : public Stmt {
   Exp *exp;
 
 public:
