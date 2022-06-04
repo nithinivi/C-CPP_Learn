@@ -3,6 +3,7 @@
 #ifndef PARSER_H
 #include "ast.h"
 #include "lexer.h"
+#include <vector>
 
 #define PARSER_H
 
@@ -22,11 +23,13 @@ class RDParser : public Lexer {
   Stmt *ParsePrintStatement();
   Stmt *ParsePrintLnStatement();
 
+  std::vector<Stmt> StatementList();
+
 public:
   RDParser(char *exp);
   ~RDParser();
 
-  Stmt[] Parse();
+  std::vector<Stmt> Parse();
 };
 
 #endif /* PARSER_H */

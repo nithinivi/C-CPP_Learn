@@ -5,6 +5,7 @@
 #include "ast.h"
 #include "builder.h"
 #include "lexer.h"
+#include "parser.h"
 
 using namespace slang;
 
@@ -52,4 +53,14 @@ void testParser() {
   }
 }
 
-int main() { testParser(); }
+void testFirstScript() {
+  char a[] = "PRINTLINE 2*10; \r\n PRINTLINE 10;\r\n PRINT 2*10;\r\n";
+  RDParser *p = new RDParser(a);
+  std::vector<Stmt> arr = p->Parse();
+  for (Stmt *s : arr)
+
+    for (Stmt *s = arr.begin(); s != arr.end(); ++i)
+      s->evaluate(NULL);
+}
+
+int main() { testFirstScript(); }
