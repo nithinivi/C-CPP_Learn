@@ -23,13 +23,13 @@ class RDParser : public Lexer {
   Stmt *ParsePrintStatement();
   Stmt *ParsePrintLnStatement();
 
-  std::vector<Stmt> StatementList();
+  std::vector<Stmt *> StatementList();
 
 public:
   RDParser(char *exp);
   ~RDParser();
 
-  std::vector<Stmt> Parse();
+  std::vector<Stmt *> Parse();
 };
 
 #endif /* PARSER_H */

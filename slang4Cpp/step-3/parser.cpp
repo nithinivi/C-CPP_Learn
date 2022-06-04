@@ -105,17 +105,17 @@ Stmt *RDParser::ParsePrintLnStatement() {
   return spt;
 }
 
-std::vector<Stmt> RDParser::Parse() {
+std::vector<Stmt *> RDParser::Parse() {
   getNext();
   return StatementList();
 }
 
-std::vector<Stmt> RDParser::StatementList() {
-  std::vector<Stmt> newArry;
+std::vector<Stmt *> RDParser::StatementList() {
+  std::vector<Stmt *> newArry;
   while (currentToken != TOK_NULL) {
     Stmt *stmt = RDParser::Statement();
     if (stmt)
-      newArry.push_back(&stmt);
+      newArry.push_back(stmt);
   }
   return newArry;
 };

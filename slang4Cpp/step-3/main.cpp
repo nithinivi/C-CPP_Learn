@@ -56,11 +56,10 @@ void testParser() {
 void testFirstScript() {
   char a[] = "PRINTLINE 2*10; \r\n PRINTLINE 10;\r\n PRINT 2*10;\r\n";
   RDParser *p = new RDParser(a);
-  std::vector<Stmt> arr = p->Parse();
-  for (Stmt *s : arr)
-
-    for (Stmt *s = arr.begin(); s != arr.end(); ++i)
-      s->evaluate(NULL);
+  std::vector<Stmt *> arr = p->Parse();
+  for (Stmt *s : arr) 
+    s->evaluate(NULL);
+  
 }
 
 int main() { testFirstScript(); }
