@@ -9,6 +9,9 @@ Brainfuck is a weird looking programming language and keeps every promise its na
 -------.>>+.>++.
 ```
 
+The componets of the Languages are as follows. 
+This is largely influenced by this [blog](https://thorstenball.com/blog/2017/01/04/a-virtual-brainfuck-machine-in-go/)
+
 ### Memory
 
 The machine has 30000 memory cells, that can each hold an integer value from 0 to 255 and are initialized to 0 by default. Each cell is addressable by a zero based index, giving us a range of 0 to 29999 as possible indexes.
