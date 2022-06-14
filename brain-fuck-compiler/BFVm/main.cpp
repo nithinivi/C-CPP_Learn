@@ -3,7 +3,8 @@
 #include <vector>
 
 int main() {
-  char c[] = "+++[---[+]>>>]<<<";
+  char c[] = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++."
+             ".+++.>>.<-.<.+++.------.--------.>>+.>++.";
   Parser *parser = new Parser(c);
   std::vector<Instruction *> incs = parser->lexer();
   Machine *machine = new Machine(incs);
