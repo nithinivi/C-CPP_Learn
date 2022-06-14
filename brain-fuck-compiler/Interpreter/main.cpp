@@ -65,7 +65,7 @@ void Machine::lexer() {
           break;
 
      case '<':
-          dp--;
+         dp--;
           break;
 
      case '.':

@@ -1,3 +1,4 @@
+#include <cstdio>
 #ifndef BFINCLUDES_H
 #include <cstdint>
 #include <cstring>
@@ -20,9 +21,12 @@ enum TOKEN {
 };
 
 class Instruction {
+
+public:
   TOKEN token;
   int arguemnt;
-  public:
+
+  
   Instruction(TOKEN tok , int argument){
     this->token = tok;
     this->arguemnt = argument;
@@ -40,16 +44,36 @@ class Parser {
   int codeLength;
   int index;
   char current_char;
-  std::vector<Instruction*> instructions;
 
+  std::vector<Instruction *> instructions;
 
   void FoldInstruction(char c, TOKEN token);
   int EmitWithArg(TOKEN token, int count);
 
 public:
+
   Parser(char *code);
   virtual ~Parser();
-  void lexer();
+  std::vector<Instruction *> lexer();
 };
+
+
+class Machine
+{
+  std::vector<Instruction *> code;
+  int ip;
+  int dp;
+  unsigned char memory[NUM_MEMORY_CELLS] = {0};
+  int buf;
+
+public:
+  Machine(std::vector<Instruction *> code);
+  virtual ~Machine();
+  void excute();
+  void readChar();
+  void putChar();
+
+};
+
 
 #endif /* BFINCLUDES_H */

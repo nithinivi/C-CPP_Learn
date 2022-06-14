@@ -8,7 +8,9 @@ Parser::Parser(char *code) {
   this->index = 0;
 };
 
-void Parser::lexer() {
+Parser::~Parser(){};
+
+std::vector<Instruction *> Parser::lexer() {
   std::vector<int> loopstack;
   int open_ins_pos;
   int close_ins_pos;
@@ -50,6 +52,7 @@ void Parser::lexer() {
    }
     index++;
   }
+  return instructions;
 }
 
 void Parser::FoldInstruction(char c, TOKEN token) {
@@ -67,3 +70,5 @@ int Parser::EmitWithArg(TOKEN token, int count ) {
   instructions.push_back(ins);
   return instructions.size() -1 ;
 }
+
+
