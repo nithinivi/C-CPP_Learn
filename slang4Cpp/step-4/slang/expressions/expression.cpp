@@ -1,4 +1,4 @@
-#include "ast.h"
+#include "../include/ast.h"
 
 using namespace slang;
 

@@ -1,5 +1,5 @@
-#include "parser.h"
-#include "lexer.h"
+#include "../include/parser.h"
+#include "../include/lexer.h"
 
 RDParser::RDParser(char *exp) : Lexer(exp){};
 RDParser::~RDParser(){};

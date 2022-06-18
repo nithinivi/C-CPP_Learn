@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef PARSER_H
-#include "../ast/ast.h"
+#include "ast.h"
 #include "lexer.h"
 #include <vector>
 
@@ -14,7 +14,7 @@ class RDParser : public Lexer {
   Token lastToken;
   Token getNext();
 
-  Exp *CallExpr();
+  
   Exp *Expr();
   Exp *Term();
   Exp *Factor();
@@ -28,7 +28,7 @@ class RDParser : public Lexer {
 public:
   RDParser(char *exp);
   ~RDParser();
-
+  Exp *CallExpr();
   std::vector<Stmt *> Parse();
 };
 

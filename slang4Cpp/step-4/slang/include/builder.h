@@ -1,6 +1,6 @@
 #pragma once
 #ifndef BUIDLER_H
-#include "../ast/ast.h"
+#include "../include/ast.h"
 #define BUIDLER_H
 
 namespace slang {

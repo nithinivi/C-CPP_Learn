@@ -1,5 +1,5 @@
-#include "builder.h"
-#include "../frontend/parser.h"
+#include "../include/builder.h"
+#include "../include/parser.h"
 
 using namespace slang;
 

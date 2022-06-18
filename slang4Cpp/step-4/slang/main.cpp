@@ -1,12 +1,13 @@
-
 #include <cstring>
 #include <iostream>
+#include <vector>
 
-#include "SLANG.h"
-#include "ast/ast.h"
-#include "builder/builder.h"
-#include "frontend/lexer.h"
-#include "frontend/parser.h"
+#include "SlangConfig.h"
+#include "include/ast.h"
+#include "include/builder.h"
+#include "include/lexer.h"
+#include "include/parser.h"
+
 
 using namespace slang;
 
@@ -57,8 +58,8 @@ void testParser() {
 void testFirstScript() {
   char a[] = "PRINTLINE 2*10; \r\n PRINTLINE 10;\r\n PRINT 2*10;\r\n";
   RDParser *p = new RDParser(a);
-  std::vector<Stmt *> arr = p->Parse();
-  for (Stmt *s : arr)
+  std::vector<Stmt*> stmts = p->Parse();
+  for (Stmt *s : stmts)
     s->evaluate(NULL);
 }
 
@@ -66,7 +67,7 @@ int main(int argc, char *argv[])
 {
   std::cout << argv[0] << " Version " << SLANG_VERSION_MAJOR << "."
             << SLANG_VERSION_MINOR << std::endl;
-  std::cout << "Usage: " << argv[0] << " number" << std::endl;
+
   testFirstScript();
 
   return 0;

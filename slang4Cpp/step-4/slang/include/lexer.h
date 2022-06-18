@@ -1,5 +1,6 @@
 #pragma once
 #ifndef LEXER_H
+#include <string>
 #define LEXER_H
 
 namespace slang {
@@ -29,9 +30,9 @@ enum Token {
 class ValueTable {
 public:
   Token token;
-  char *value;
+  std::string value;
 
-  ValueTable(Token token, char *value) {
+  ValueTable(Token token, std::string value) {
     this->token = token;
     this->value = value;
   }
