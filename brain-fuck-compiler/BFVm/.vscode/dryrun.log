@@ -1,0 +1,9 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/nithin/learn/c-cpp/brain-fuck-compiler/BFVm'
+g++ -c main.cpp 
+g++ -c compiler.cpp
+g++ -c machine.cpp 
+g++ main.o compiler.o machine.o -o bfvm
+rm -rf *.o
+make: Leaving directory '/home/nithin/learn/c-cpp/brain-fuck-compiler/BFVm'
+ 
