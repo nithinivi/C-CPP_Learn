@@ -1,11 +1,11 @@
-#include "../include/ast.h"
-#include "../include/common.h"
+#include "../include/ast_expression.hpp"
+#include "../include/common.hpp"
 
 BooleanConstant::BooleanConstant(bool value) {
     symbolInfo = new SymbolInfo();
     symbolInfo->symbolName = "";
     symbolInfo->boolValue = value;
-    symbolInfo->Type = TYPE_BOOL;
+    symbolInfo->type_ = TYPE_BOOL;
 }
 
 SymbolInfo *BooleanConstant::evaluate(RuntimeContext *ctx) {
@@ -13,7 +13,7 @@ SymbolInfo *BooleanConstant::evaluate(RuntimeContext *ctx) {
 }
 
 TYPE_INFO BooleanConstant::typeCheck(CompilationContext *ctx) {
-    return symbolInfo->Type;
+    return symbolInfo->type_;
 }
 
-TYPE_INFO BooleanConstant::getType() { return symbolInfo->Type; }
+TYPE_INFO BooleanConstant::getType() { return symbolInfo->type_; }

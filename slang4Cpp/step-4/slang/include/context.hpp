@@ -1,12 +1,7 @@
-#pragma once
-#ifndef COMMON_H
-
-#include <map>
 #include <string>
-
-#define COMMON_H
-
-enum TYPE_INFO { TYPE_ILLEGAL, TYPE_NUMERIC, TYPE_BOOL, TYPE_STRING };
+#ifndef CONTEXT_H
+#include "common.hpp"
+#define CONTEXT_H
 
 class SymbolInfo {
 public:
@@ -19,12 +14,12 @@ public:
 };
 
 class SymbolTable {
-    std::map<std::string, SymbolInfo> table;
+    std::map<std::string, SymbolInfo *> table;
 
 public:
-    void add(SymbolInfo s);
+    void add(SymbolInfo *s);
     SymbolInfo *get(std::string symbolname);
-    void assign(std::string varbleName, SymbolInfo symbol);
+    void assign(std::string varName, SymbolInfo *info);
 };
 
 class RuntimeContext {
@@ -40,4 +35,4 @@ public:
     ~CompilationContext(){};
 };
 
-#endif /* COMMON_H */
+#endif /* CONTEXT_H */

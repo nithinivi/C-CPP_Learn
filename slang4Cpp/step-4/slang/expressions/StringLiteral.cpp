@@ -1,12 +1,12 @@
-#include "../include/ast.h"
-#include "../include/common.h"
+#include "../include/ast_expression.hpp"
+#include "../include/common.hpp"
 #include <string>
 
 StringLiteral::StringLiteral(std::string value) { 
     symbolInfo = new SymbolInfo();
     symbolInfo->symbolName = "";
     symbolInfo->stringValue = value;
-    symbolInfo->Type = TYPE_STRING;
+    symbolInfo->type_ = TYPE_STRING;
 }
 
 SymbolInfo *StringLiteral::evaluate(RuntimeContext *ctx) {
@@ -14,7 +14,7 @@ SymbolInfo *StringLiteral::evaluate(RuntimeContext *ctx) {
 }
 
 TYPE_INFO StringLiteral::typeCheck(CompilationContext *ctx) {
-    return symbolInfo->Type;
+    return symbolInfo->type_;
 }
 
-TYPE_INFO StringLiteral::getType() { return symbolInfo->Type; }
+TYPE_INFO StringLiteral::getType() { return symbolInfo->type_; }

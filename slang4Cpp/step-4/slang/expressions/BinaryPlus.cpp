@@ -1,5 +1,5 @@
-#include "../include/ast.h"
-#include "../include/common.h"
+#include "../include/ast_expression.hpp"
+#include "../include/common.hpp"
 
 BinaryPlus::BinaryPlus(Exp *left, Exp *right) {
     left = left;
@@ -19,6 +19,7 @@ SymbolInfo *BinaryPlus::evaluate(RuntimeContext *ctx) {
         SymbolInfo *info = new SymbolInfo();
         info->type_ = TYPE_STRING;
         info->stringValue = eval_l->stringValue + eval_r->stringValue;
+        info->symbolName = "";
         return info;
     }
 
@@ -26,6 +27,7 @@ SymbolInfo *BinaryPlus::evaluate(RuntimeContext *ctx) {
         SymbolInfo *info = new SymbolInfo();
         info->type_ = TYPE_NUMERIC;
         info->stringValue = eval_l->doubleValue + eval_r->doubleValue;
+        info->symbolName = "";
         return info;
     }
 
@@ -39,11 +41,11 @@ TYPE_INFO BinaryPlus::typeCheck(CompilationContext *ctx) {
     TYPE_INFO left_t_ = left->typeCheck(ctx);
     TYPE_INFO right_t_ = left->typeCheck(ctx);
 
-    if(left_t_ != right_t_ && right_t_ == TYPE_BOOL )
-      throw "Type mismatch failure";
+    if (left_t_ != right_t_ && right_t_ == TYPE_BOOL)
+        throw "Type mismatch failure";
 
     type_ = right_t_;
     return type_;
 }
 
-TYPE_INFO BinaryPlus::getType(){return type_;}
+TYPE_INFO BinaryPlus::getType() { return type_; }
