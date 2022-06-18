@@ -23,6 +23,13 @@ std::ostream &operator<<(std::ostream &strm, Token tt) {
   return strm << nameTT[tt];
 }
 
+std::string to_string(char *a, int size) {
+  std::string str = "";
+  for (int i = 0; i < size; i++)
+    str += a[i];
+  return str;
+}
+
 Lexer::Lexer(char *exp) {
   this->exp = exp;
   this->length = strlen(exp);
@@ -91,10 +98,11 @@ Token Lexer::getToken() {
         index++;
 
       std::size_t lenOfNum = index - numStartIndex;
-      std::strncpy(last_str, exp + index, lenOfNum);
+      std::string str = to_string(exp + numStartIndex, lenOfNum);
+      last_str = str.c_str();
 
       for (int i = 0; i < KEYWORDS_COUNT; ++i) {
-        if (std::strcmp(std::toupper(&last_str), value_table[i]->value) == 0) {
+        if (last_str == value_table[i]->value) {
           ValueTable *t = value_table[i];
           return t->token;
         }

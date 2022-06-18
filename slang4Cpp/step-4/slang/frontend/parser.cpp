@@ -90,7 +90,7 @@ Stmt *RDParser::Statement() {
 Stmt *RDParser::ParsePrintStatement() {
   getNext();
   Exp *exp = Expr();
-  if (currentToken == TOK_SEMI)
+  if (currentToken != TOK_SEMI)
     throw std::runtime_error("Expected ;");
   PrintStatement *spt = new PrintStatement(exp);
   return spt;
@@ -99,7 +99,7 @@ Stmt *RDParser::ParsePrintStatement() {
 Stmt *RDParser::ParsePrintLnStatement() {
   getNext();
   Exp *exp = Expr();
-  if (currentToken == TOK_SEMI)
+  if (currentToken != TOK_SEMI)
     throw std::runtime_error("Expected ;");
   PrintLnStatement *spt = new PrintLnStatement(exp);
   return spt;

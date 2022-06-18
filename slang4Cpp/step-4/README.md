@@ -4,9 +4,9 @@
 ## Usage
 
 ```bash
-mkdir -p out/build
-cd out/build
-cmake -s ../../ -B . && make -k && ./slang
+mkdir build
+cd build
+cmake -s ../ -B . && make -k && ./slang
 
 ```
 ## Reference 

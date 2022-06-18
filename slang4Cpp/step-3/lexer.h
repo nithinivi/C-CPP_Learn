@@ -1,5 +1,6 @@
 #pragma once
 #ifndef LEXER_H
+#include <string>
 #define LEXER_H
 
 namespace slang {
@@ -42,7 +43,7 @@ class Lexer {
   int index;
   int length;
   double number;
-  char *last_str;
+  std::string last_str;
   ValueTable *value_table[KEYWORDS_COUNT];
 
 public:

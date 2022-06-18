@@ -8,7 +8,6 @@
 #include "include/lexer.h"
 #include "include/parser.h"
 
-
 using namespace slang;
 
 void test_lexer() {
@@ -56,15 +55,14 @@ void testParser() {
 }
 
 void testFirstScript() {
-  char a[] = "PRINTLINE 2*10; \r\n PRINTLINE 10;\r\n PRINT 2*10;\r\n";
+  char a[] = "PRINT 2*10; \r\n PRINTLINE 10;\r\n PRINT 2*10;\r\n";
   RDParser *p = new RDParser(a);
-  std::vector<Stmt*> stmts = p->Parse();
+  std::vector<Stmt *> stmts = p->Parse();
   for (Stmt *s : stmts)
     s->evaluate(NULL);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   std::cout << argv[0] << " Version " << SLANG_VERSION_MAJOR << "."
             << SLANG_VERSION_MINOR << std::endl;
 
@@ -72,5 +70,3 @@ int main(int argc, char *argv[])
 
   return 0;
 }
-
-

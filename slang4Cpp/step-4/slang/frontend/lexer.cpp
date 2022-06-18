@@ -8,30 +8,11 @@
 
 using namespace slang;
 
-std::ostream &operator<<(std::ostream &strm, Token tt) {
-  const std::string nameTT[] = {"ILLEGAL_TOKEN",
-                                "TOK_NULL",
-                                "TOK_PLUS",
-                                "TOK_SUB",
-                                "TOK_MUL",
-                                "TOK_DIV",
-                                "TOK_OPAREN",
-                                "TOK_CPAREN",
-                                "TOK_DOUBLE",
-                                "TOK_PRINT",
-                                "TOK_PRINTLN"
-                                "TOK_UNQUOTED_STRING",
-                                "TOK_SEMI"};
-  return strm << nameTT[tt];
-}
-
-std::string to_upper_case_string(char *a, int size) {
-  int i;
-  std::string s = " ";
-  for (i = 0; i < size; i++) 
-    s  += toupper(a[i]);
-  
-  return s;
+std::string to_string(char *a, int size) {
+  std::string str = "";
+  for (int i = 0; i < size; i++)
+    str += a[i];
+  return str;
 }
 
 Lexer::Lexer(char *exp) {
@@ -46,6 +27,7 @@ Lexer::Lexer(char *exp) {
 double Lexer::getNumber() { return number; }
 
 Token Lexer::getToken() {
+start:
   Token tok = ILLEGAL_TOKEN;
 
   while (index < length && (exp[index] == ' ' || exp[index] == '\t'))
@@ -57,6 +39,8 @@ Token Lexer::getToken() {
   switch (exp[index]) {
   case '\n':
   case '\r':
+    index++;
+    goto start;
   case '+':
     tok = TOK_PLUS;
     index++;
@@ -101,12 +85,12 @@ Token Lexer::getToken() {
         index++;
 
       std::size_t lenOfNum = index - numStartIndex;
-      std::strncpy(last_str, exp + index, lenOfNum);
-      
+      std::string str = to_string(exp + numStartIndex, lenOfNum);
+      std::cout << str << std::endl;
+      last_str = str.c_str();
+
       for (int i = 0; i < KEYWORDS_COUNT; ++i) {
-        int last_str_len = strlen(last_str);
-        std::string upper_last_str = to_upper_case_string(last_str, last_str_len);
-        if (!std::strcmp(upper_last_str.c_str(), value_table[i]->value.c_str())) {
+        if (last_str == value_table[i]->value) {
           ValueTable *t = value_table[i];
           return t->token;
         }
@@ -116,6 +100,6 @@ Token Lexer::getToken() {
       throw std::runtime_error("Unknown character found while tokenizing ");
   }
 
-  std::cout << tok << std::endl;
+  // std::cout << tok << std::endl;
   return tok;
 }
