@@ -134,3 +134,4 @@ flycheck_*.el
 */out/build/*
 
 **.log
+/slang4Cpp/step-4/out/
