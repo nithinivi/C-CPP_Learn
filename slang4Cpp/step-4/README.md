@@ -1,5 +1,9 @@
 # Slang 4 Cpp
 
+- build with cmake 
+- support assignment
+- data types
+- variables
 
 ## Usage
 
@@ -9,6 +13,8 @@ cd build
 cmake -s ../ -B . && make -k && ./slang
 
 ```
+
+
 ## Reference 
 
 [1] https://github.com/praseedpai/SlangForDotNet
