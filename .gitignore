@@ -131,7 +131,7 @@ flycheck_*.el
 
 # End of https://www.toptal.com/developers/gitignore/api/emacs,visualstudiocode,c++,cmake
 
-*/out/build/*
+**/build/*
 
 **.log
-/slang4Cpp/step-4/out/
+/slang4Cpp/step-4/build/
