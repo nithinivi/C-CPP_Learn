@@ -63,10 +63,12 @@ class Machine
   std::vector<Instruction *> code;
   int ip;
   int dp;
-  unsigned char memory[NUM_MEMORY_CELLS] = {0};
+  
   int buf;
 
 public:
+  unsigned char memory[NUM_MEMORY_CELLS] = {0};
+
   Machine(std::vector<Instruction *> code);
   virtual ~Machine();
   void excute();

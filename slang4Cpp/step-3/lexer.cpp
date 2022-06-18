@@ -29,6 +29,7 @@ Lexer::Lexer(char *exp) {
   this->index = 0;
 
   value_table[0] = new ValueTable(TOK_PRINT, "PRINT");
+
   value_table[1] = new ValueTable(TOK_PRINTLN, "PRINTLINE");
 }
 

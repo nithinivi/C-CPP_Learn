@@ -4,7 +4,7 @@
 
 Parser::Parser(char *code) {
   this->code = code;
-  this->codeLength = strlen(code);
+  this->codeLength = std::strlen(code);
   this->index = 0;
 };
 
@@ -23,7 +23,7 @@ std::vector<Instruction *> Parser::lexer() {
       FoldInstruction('+', TOK_PLUS);
       break;
     case '-':
-      FoldInstruction('-' ,TOK_MINUS);
+      FoldInstruction('-', TOK_MINUS);
       break;
     case '<':
       FoldInstruction('<', TOK_LEFT);
@@ -49,7 +49,7 @@ std::vector<Instruction *> Parser::lexer() {
       close_ins_pos = EmitWithArg(TOK_JUMPIFNOTZERO, open_ins_pos);
       instructions[open_ins_pos]->setArg(close_ins_pos);
       break;
-   }
+    }
     index++;
   }
   return instructions;
@@ -57,18 +57,15 @@ std::vector<Instruction *> Parser::lexer() {
 
 void Parser::FoldInstruction(char c, TOKEN token) {
   int char_count = 1;
-  while (index < codeLength && code[index+1] == c) {
+  while (index < codeLength && code[index + 1] == c) {
     char_count++;
     index++;
   }
-  EmitWithArg(token,char_count);
+  EmitWithArg(token, char_count);
 }
 
-
-int Parser::EmitWithArg(TOKEN token, int count ) {
+int Parser::EmitWithArg(TOKEN token, int count) {
   Instruction *ins = new Instruction(token, count);
   instructions.push_back(ins);
-  return instructions.size() -1 ;
+  return instructions.size() - 1;
 }
-
-
