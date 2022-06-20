@@ -1,4 +1,4 @@
-#include "../include/ast_statement.hpp"
+#include "../include/ast_statement.h"
 
 Stmt::Stmt(){};
 Stmt::~Stmt(){};

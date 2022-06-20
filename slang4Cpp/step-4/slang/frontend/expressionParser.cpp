@@ -1,72 +1,88 @@
-#include "../include/parser.h"
+#include "../include/ast_expression.h"
 #include "../include/lexer.h"
+#include "../include/parser.h"
 
-RDParser::RDParser(char *exp) : Lexer(exp){};
+RDParser::RDParser(std::string exp) : Lexer(exp){};
 RDParser::~RDParser(){};
 
 Token RDParser::getNext() {
-  lastToken = currentToken;
-  currentToken = getToken();
-  return currentToken;
-}
-
-Exp *RDParser::CallExpr() {
-  currentToken = getToken();
-  return Expr();
-}
-
-Exp *RDParser::Expr() {
-  Exp *retValue = Term();
-  while (currentToken == TOK_PLUS || currentToken == TOK_SUB) //
-  {
-    getNext();
-    Exp *right = Expr();
-    retValue = new BinaryExp(retValue, right,
-                             lastToken == TOK_PLUS ? OP_PLUS : OP_MINUS);
-  }
-  return retValue;
-}
-
-Exp *RDParser::Term() {
-  Exp *retValue = Factor();
-  while (currentToken == TOK_MUL || currentToken == TOK_DIV) {
-    getNext();
-    Exp *right = Term();
-    retValue =
-        new BinaryExp(retValue, right, lastToken == TOK_MUL ? OP_MUL : OP_DIV);
-  }
-  return retValue;
-}
-
-Exp *RDParser::Factor() {
-  Exp *retValue;
-  if (currentToken == TOK_DOUBLE) {
-    retValue = new NumericConst(getNumber());
+    lastToken = currentToken;
     currentToken = getToken();
-  }
+    return currentToken;
+}
 
-  else if (currentToken == TOK_OPAREN) {
+Exp *RDParser::CallExpr(CompilationContext *ctx) {
     currentToken = getToken();
-    retValue = Expr();
+    return Expr(ctx);
+}
 
-    if (currentToken != TOK_CPAREN) {
-      if (retValue)
-        delete retValue;
-      throw std::runtime_error("Missing Closing Parenthesis");
+Exp *RDParser::Expr(CompilationContext *ctx) {
+    Exp *retValue = Term(ctx);
+    while (currentToken == TOK_PLUS || currentToken == TOK_SUB) //
+    {
+        getNext();
+        Exp *right = Expr(ctx);
+
+        if (lastToken == TOK_PLUS)
+            retValue = new BinaryPlus(retValue, right);
+        else
+            retValue = new BinaryMinus(retValue, right);
     }
-    currentToken = getToken();
-  }
-
-  else if (currentToken == TOK_PLUS || currentToken == TOK_SUB) {
-    getNext();
-    retValue = Factor();
-    retValue =
-        new UnaryExp(retValue, lastToken == TOK_PLUS ? OP_PLUS : OP_MINUS);
-  }
-
-  else {
-    throw std::runtime_error("Illegal Token");
-  }
-  return retValue;
+    return retValue;
 }
 
+Exp *RDParser::Term(CompilationContext *ctx) {
+    Exp *retValue = Factor(ctx);
+    while (currentToken == TOK_MUL || currentToken == TOK_DIV) {
+        getNext();
+        Exp *right = Term(ctx);
+        if (lastToken == TOK_MUL)
+            retValue = new BinaryMul(retValue, right);
+        else
+            retValue = new BinaryDiv(retValue, right);
+    }
+    return retValue;
+}
+
+Exp *RDParser::Factor(CompilationContext *ctx) {
+    Exp *retValue;
+    if (currentToken == TOK_DOUBLE) {
+        retValue = new NumericConstant(getNumber());
+        currentToken = getToken();
+    }
+
+    else if (currentToken == TOK_OPAREN) {
+        currentToken = getToken();
+        retValue = Expr(ctx);
+
+        if (currentToken != TOK_CPAREN) {
+            if (retValue)
+                delete retValue;
+            throw std::runtime_error("Missing Closing Parenthesis");
+        }
+        currentToken = getToken();
+    }
+
+    else if (currentToken == TOK_PLUS || currentToken == TOK_SUB) {
+        getNext();
+        Exp *expression = Factor(ctx);
+        if (lastToken == TOK_PLUS)
+            retValue = new UnaryPlus(expression);
+        else
+            retValue = new UnaryMinus(expression);
+    }
+
+    else if (currentToken == TOK_UNQUOTED_STRING) {
+        std::string variable = getString();
+        SymbolInfo *info = ctx->table->get(variable);
+        if (!info)
+            throw "Undefine symbol";
+        getNext();
+        retValue = new Variable(info);
+    }
+
+    else {
+        throw std::runtime_error("Illegal Token");
+    }
+    return retValue;
+}

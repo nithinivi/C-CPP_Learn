@@ -1,35 +1,35 @@
 #pragma once
 
 #ifndef PARSER_H
+#include "../include/context.h"
 #include "ast.h"
+#include "ast_statement.h"
 #include "lexer.h"
 #include <vector>
-#include "ast_statement.hpp"
 #define PARSER_H
 
-using namespace slang;
-
 class RDParser : public Lexer {
-  Token currentToken;
-  Token lastToken;
-  Token getNext();
+    Token currentToken;
+    Token lastToken;
+    Token getNext();
 
-  
-  Exp *Expr();
-  Exp *Term();
-  Exp *Factor();
+    Exp *Expr(CompilationContext *ctx);
+    Exp *Term(CompilationContext *ctx);
+    Exp *Factor(CompilationContext *ctx);
 
-  Stmt *Statement();
-  Stmt *ParsePrintStatement();
-  Stmt *ParsePrintLnStatement();
+    Stmt *Statement(CompilationContext *ctx);
+    Stmt *ParsePrintStatement(CompilationContext *ctx);
+    Stmt *ParsePrintLnStatement(CompilationContext *ctx);
+    Stmt *ParseVariableStatement(CompilationContext *ctx);
+    Stmt *ParseAssignmentStatement(CompilationContext *ctx);
 
-  std::vector<Stmt *> StatementList();
+    std::vector<Stmt *> StatementList(CompilationContext *ctx);
 
 public:
-  RDParser(char *exp);
-  ~RDParser();
-  Exp *CallExpr();
-  std::vector<Stmt *> Parse();
+    RDParser(std::string exp);
+    ~RDParser();
+    Exp *CallExpr(CompilationContext *ctx);
+    std::vector<Stmt *> Parse(CompilationContext *ctx);
 };
 
 #endif /* PARSER_H */

@@ -1,105 +1,111 @@
 #include "../include/lexer.h"
 #include <cctype>
+#include <cstddef>
 #include <cstring>
 #include <ctype.h>
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
-using namespace slang;
-
 std::string to_string(char *a, int size) {
-  std::string str = "";
-  for (int i = 0; i < size; i++)
-    str += a[i];
-  return str;
+    std::string str = "";
+    for (int i = 0; i < size; i++)
+        str += a[i];
+    return str;
 }
 
-Lexer::Lexer(char *exp) {
-  this->exp = exp;
-  this->length = strlen(exp);
-  this->index = 0;
+Lexer::Lexer(std::string exp) {
+    this->exp = exp;
+    this->length = exp.length();
+    this->index = 0;
 
-  value_table[0] = new ValueTable(TOK_PRINT, "PRINT");
-  value_table[1] = new ValueTable(TOK_PRINTLN, "PRINTLINE");
+    value_table[0] = new ValueTable(TOK_PRINT, "PRINT");
+    value_table[1] = new ValueTable(TOK_PRINTLN, "PRINTLINE");
+    value_table[2] = new ValueTable(TOK_BOOL_FALSE, "FALSE");
+    value_table[3] = new ValueTable(TOK_BOOL_TRUE, "TRUE");
+    value_table[4] = new ValueTable(TOK_VAR_STRING, "STRING");
+    value_table[5] = new ValueTable(TOK_VAR_BOOL, "BOOLEAN");
+    value_table[6] = new ValueTable(TOK_VAR_NUMBER, "NUMERIC");
 }
 
 double Lexer::getNumber() { return number; }
+std::string Lexer::getString() { return last_str; }
 
 Token Lexer::getToken() {
 start:
-  Token tok = ILLEGAL_TOKEN;
+    Token tok = ILLEGAL_TOKEN;
 
-  while (index < length && (exp[index] == ' ' || exp[index] == '\t'))
-    index++;
-
-  if (index == length)
-    return TOK_NULL;
-
-  switch (exp[index]) {
-  case '\n':
-  case '\r':
-    index++;
-    goto start;
-  case '+':
-    tok = TOK_PLUS;
-    index++;
-    break;
-  case '-':
-    tok = TOK_SUB;
-    index++;
-    break;
-  case '/':
-    tok = TOK_DIV;
-    index++;
-    break;
-  case '*':
-    tok = TOK_MUL;
-    index++;
-    break;
-  case ')':
-    tok = TOK_CPAREN;
-    index++;
-    break;
-  case '(':
-    tok = TOK_OPAREN;
-    index++;
-    break;
-  case ';':
-    tok = TOK_SEMI;
-    index++;
-    break;
-  default:
-    if (isdigit(exp[index])) {
-      int numStartIndex = index;
-      while (index < length && isdigit(exp[index]))
+    while (index < length && (exp[index] == ' ' || exp[index] == '\t'))
         index++;
 
-      std::size_t lenOfNum = index - numStartIndex;
-      number = std::stod(exp + numStartIndex, &lenOfNum);
-      tok = TOK_DOUBLE;
+    if (index == length)
+        return TOK_NULL;
 
-    } else if (isalpha(exp[index])) {
-      int numStartIndex = index;
-      while (index < length && isalpha(exp[index]))
+    switch (exp[index]) {
+    case '\n':
+    case '\r':
         index++;
+        goto start;
+    case '+':
+        tok = TOK_PLUS;
+        index++;
+        break;
+    case '-':
+        tok = TOK_SUB;
+        index++;
+        break;
+    case '/':
+        tok = TOK_DIV;
+        index++;
+        break;
+    case '*':
+        tok = TOK_MUL;
+        index++;
+        break;
+    case ')':
+        tok = TOK_CPAREN;
+        index++;
+        break;
+    case '(':
+        tok = TOK_OPAREN;
+        index++;
+        break;
+    case ';':
+        tok = TOK_SEMI;
+        index++;
+        break;
+    default:
+        if (isdigit(exp[index])) {
+            int numStartIndex = index;
+            while (index < length && isdigit(exp[index]))
+                index++;
 
-      std::size_t lenOfNum = index - numStartIndex;
-      std::string str = to_string(exp + numStartIndex, lenOfNum);
-      std::cout << str << std::endl;
-      last_str = str.c_str();
+            std::size_t lenOfNum = index - numStartIndex;
+            std::string numStr = exp.substr(numStartIndex, lenOfNum);
+            number = std::stod(numStr);
+            tok = TOK_DOUBLE;
 
-      for (int i = 0; i < KEYWORDS_COUNT; ++i) {
-        if (last_str == value_table[i]->value) {
-          ValueTable *t = value_table[i];
-          return t->token;
-        }
-      }
-      return TOK_UNQUOTED_STRING;
-    } else
-      throw std::runtime_error("Unknown character found while tokenizing ");
-  }
+        } else if (isalpha(exp[index])) {
+            int numStartIndex = index;
+            while (index < length && isalpha(exp[index]))
+                index++;
 
-  // std::cout << tok << std::endl;
-  return tok;
+            std::size_t lenOfNum = index - numStartIndex;
+            last_str = exp.substr(numStartIndex, lenOfNum);
+          
+
+            for (int i = 0; i < KEYWORDS_COUNT; ++i) {
+                if (last_str == value_table[i]->value) {
+                    ValueTable *t = value_table[i];
+                    return t->token;
+                }
+            }
+            return TOK_UNQUOTED_STRING;
+        } else
+            throw std::runtime_error(
+                "Unknown character found while tokenizing ");
+    }
+
+    // std::cout << tok << std::endl;
+    return tok;
 }

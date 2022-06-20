@@ -1,5 +1,5 @@
-#include "../include/ast_expression.hpp"
-#include "../include/common.hpp"
+#include "../include/ast_expression.h"
+#include "../include/common.h"
 
 BooleanConstant::BooleanConstant(bool value) {
     symbolInfo = new SymbolInfo();
@@ -7,6 +7,8 @@ BooleanConstant::BooleanConstant(bool value) {
     symbolInfo->boolValue = value;
     symbolInfo->type_ = TYPE_BOOL;
 }
+
+BooleanConstant::~BooleanConstant() { delete symbolInfo; }
 
 SymbolInfo *BooleanConstant::evaluate(RuntimeContext *ctx) {
     return symbolInfo;

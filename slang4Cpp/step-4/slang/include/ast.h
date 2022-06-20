@@ -1,8 +1,8 @@
 #pragma once
 
 #ifndef AST_H
-#include "common.hpp"
-#include "context.hpp"
+#include "common.h"
+#include "context.h"
 #include <cstddef>
 #include <iostream>
 #include <stdexcept>

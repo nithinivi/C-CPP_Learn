@@ -1,5 +1,5 @@
-#include "../include/ast_expression.hpp"
-#include "../include/common.hpp"
+#include "../include/ast_expression.h"
+
 #include <string>
 
 StringLiteral::StringLiteral(std::string value) { 
@@ -9,6 +9,9 @@ StringLiteral::StringLiteral(std::string value) {
     symbolInfo->type_ = TYPE_STRING;
 }
 
+StringLiteral::~StringLiteral() {
+  delete symbolInfo;
+}
 SymbolInfo *StringLiteral::evaluate(RuntimeContext *ctx) {
     return symbolInfo;
 }

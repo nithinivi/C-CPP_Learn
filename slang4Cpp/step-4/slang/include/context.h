@@ -1,6 +1,6 @@
 #include <string>
 #ifndef CONTEXT_H
-#include "common.hpp"
+#include "common.h"
 #define CONTEXT_H
 
 class SymbolInfo {
@@ -26,12 +26,13 @@ class RuntimeContext {
 public:
     SymbolTable *symbolTable;
     RuntimeContext() { symbolTable = new SymbolTable(); };
+    ~RuntimeContext();
 };
 
 class CompilationContext {
 public:
-    SymbolTable *symbolTable;
-    CompilationContext() { symbolTable = new SymbolTable(); };
+    SymbolTable *table;
+    CompilationContext() { table = new SymbolTable(); };
     ~CompilationContext(){};
 };
 

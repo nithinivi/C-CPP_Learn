@@ -1,11 +1,15 @@
-#include "../include/ast_expression.hpp"
-#include "../include/common.hpp"
+#include "../include/ast_expression.h"
+#include "../include/common.h"
 
 NumericConstant::NumericConstant(double value) {
     symbolInfo = new SymbolInfo();
     symbolInfo->symbolName = "";
     symbolInfo->doubleValue = value;
     symbolInfo->type_ = TYPE_NUMERIC;
+}
+
+NumericConstant::~NumericConstant() {
+  delete symbolInfo;
 }
 
 SymbolInfo *NumericConstant::evaluate(RuntimeContext *ctx) {

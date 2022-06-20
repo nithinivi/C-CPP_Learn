@@ -1,14 +1,14 @@
-#include "../include/ast_expression.hpp"
-#include "../include/common.hpp"
+#include "../include/ast_expression.h"
+
 
 UnaryPlus::UnaryPlus(Exp *exp) { //
-    exp = exp;
+    expr = exp;
 }
 
-UnaryPlus::~UnaryPlus() { delete exp; }
+UnaryPlus::~UnaryPlus() { delete expr; }
 
 SymbolInfo *UnaryPlus::evaluate(RuntimeContext *ctx) {
-    SymbolInfo *eval_exp = exp->evaluate(ctx);
+    SymbolInfo *eval_exp = expr->evaluate(ctx);
 
     if (eval_exp->type_ == TYPE_NUMERIC) {
         SymbolInfo *info = new SymbolInfo();
@@ -23,7 +23,7 @@ SymbolInfo *UnaryPlus::evaluate(RuntimeContext *ctx) {
 }
 
 TYPE_INFO UnaryPlus::typeCheck(CompilationContext *ctx) {
-    TYPE_INFO exp_t_ = exp->typeCheck(ctx);
+    TYPE_INFO exp_t_ = expr->typeCheck(ctx);
 
     if (exp_t_ != TYPE_NUMERIC)
         throw "Type mismatch failure";

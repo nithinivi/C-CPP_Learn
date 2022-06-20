@@ -1,7 +1,8 @@
 #pragma once
 #ifndef AST_EXPRESSION_H
-#include "common.hpp"
-#include "context.hpp"
+
+#include "common.h"
+#include "context.h"
 #include "ast.h"
 
 #define AST_EXPRESSION_H
@@ -42,7 +43,23 @@ public:
     TYPE_INFO getType();
 };
 
+class Variable : public Exp {
+    SymbolInfo *symbolInfo;
+    TYPE_INFO type_;
 
+public:
+    Variable(SymbolInfo *symbolInfo);
+    Variable(CompilationContext *ctx, std::string name, double value);
+    Variable(CompilationContext *ctx, std::string name, bool value);
+    Variable(CompilationContext *ctx, std::string name, std::string value);
+    ~Variable();
+
+    SymbolInfo *evaluate(RuntimeContext *ctx);
+    TYPE_INFO typeCheck(CompilationContext *ctx);
+    TYPE_INFO getType();
+
+    std::string getName();
+};
 
 class BinaryPlus : public Exp {
     Exp *left , *right;
@@ -97,11 +114,11 @@ public:
 };
 
 class UnaryPlus : public Exp {
-    Exp *exp;
+    Exp *expr;
     TYPE_INFO type_;
 
 public:
-    UnaryPlus(Exp *exp);
+    UnaryPlus(Exp *expr);
     ~UnaryPlus();
 
     SymbolInfo *evaluate(RuntimeContext *ctx);
@@ -110,11 +127,11 @@ public:
 };
 
 class UnaryMinus : public Exp {
-    Exp *exp;
+    Exp *expr;
     TYPE_INFO type_;
 
 public:
-    UnaryMinus(Exp *exp);
+    UnaryMinus(Exp *expr);
     ~UnaryMinus();
 
     SymbolInfo *evaluate(RuntimeContext *ctx);

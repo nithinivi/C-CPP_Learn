@@ -2,29 +2,10 @@
 #ifndef AST_STATEMENTS_H
 
 #include "ast.h"
-#include "context.hpp"
-
+#include "context.h"
+#include "ast_expression.h"
 
 #define AST_STATEMENTS_H
-
-class Variable : public Exp {
-    SymbolInfo *symbolInfo;
-    TYPE_INFO type_;
-    
-
-public:
-    Variable(SymbolInfo *symbolInfo);
-    Variable(CompilationContext *ctx, std::string name, double value);
-    Variable(CompilationContext *ctx, std::string name, bool value);
-    Variable(CompilationContext *ctx, std::string name, std::string value);
-    ~Variable();
-
-    SymbolInfo *evaluate(RuntimeContext *ctx);
-    TYPE_INFO typeCheck(CompilationContext *ctx);
-    TYPE_INFO getType();
-
-    std::string getName();
-};
 
 class VariableDeclStatement : public Stmt {
     SymbolInfo *info;

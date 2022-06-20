@@ -1,10 +1,9 @@
 #pragma once
 
-#include <map>
-#include <string>
-
 #ifndef COMMON_H
 
+#include <map>
+#include <string>
 
 #define COMMON_H
 

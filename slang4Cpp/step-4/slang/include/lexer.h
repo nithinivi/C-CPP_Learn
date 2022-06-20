@@ -3,9 +3,8 @@
 #include <string>
 #define LEXER_H
 
-namespace slang {
 
-#define KEYWORDS_COUNT 2
+#define KEYWORDS_COUNT 7
 
 enum Token {
   ILLEGAL_TOKEN = 0,
@@ -25,6 +24,17 @@ enum Token {
   TOK_UNQUOTED_STRING,
   TOK_SEMI,
 
+
+  TOK_VAR_NUMBER,
+  TOK_VAR_STRING,
+  TOK_VAR_BOOL,
+  TOK_NUMERIC,
+  TOK_COMMENT,
+  TOK_BOOL_TRUE,
+  TOK_BOOL_FALSE,
+  TOK_STRING,
+  TOK_ASSIGN
+  
 };
 
 class ValueTable {
@@ -39,7 +49,7 @@ public:
 };
 
 class Lexer {
-  char *exp;
+  std::string exp;
   int index;
   int length;
   double number;
@@ -47,11 +57,12 @@ class Lexer {
   ValueTable *value_table[KEYWORDS_COUNT];
 
 public:
-  Lexer(char *exp);
+  Lexer(std::string exp);
   Token getToken();
   double getNumber();
+  std::string getString();
 };
 
-} // namespace slang
+
 
 #endif /* LEXER_H */

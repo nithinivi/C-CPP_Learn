@@ -1,5 +1,5 @@
-#include "../include/ast.h"
-#include "../include/common.h"
+#include "../include/ast_expression.h"
+#include "../include/context.h"
 
 #include <cstddef>
 #include <iostream>
@@ -11,13 +11,13 @@ Variable::Variable(CompilationContext *ctx, std::string name, double value) {
     symbolInfo = new SymbolInfo();
     symbolInfo->symbolName = name;
     symbolInfo->doubleValue = value;
-    symbolInfo->Type = TYPE_NUMERIC;
+    symbolInfo->type_ = TYPE_NUMERIC;
 }
 Variable::Variable(CompilationContext *ctx, std::string name, bool value) {
     symbolInfo = new SymbolInfo();
     symbolInfo->symbolName = name;
     symbolInfo->boolValue = value;
-    symbolInfo->Type = TYPE_BOOL;
+    symbolInfo->type_ = TYPE_BOOL;
 }
 
 Variable::Variable(CompilationContext *ctx, std::string name,
@@ -25,7 +25,7 @@ Variable::Variable(CompilationContext *ctx, std::string name,
     symbolInfo = new SymbolInfo();
     symbolInfo->symbolName = name;
     symbolInfo->stringValue = value;
-    symbolInfo->Type = TYPE_STRING;
+    symbolInfo->type_ = TYPE_STRING;
 }
 Variable::~Variable() { delete symbolInfo; }
 
@@ -39,14 +39,14 @@ SymbolInfo *Variable::evaluate(RuntimeContext *ctx) {
 }
 
 TYPE_INFO Variable::typeCheck(CompilationContext *ctx) {
-    if (!ctx->symbolTable)
+    if (!ctx->table)
         return TYPE_ILLEGAL;
 
-    SymbolInfo *info = ctx->symbolTable->get(getName());
+    SymbolInfo *info = ctx->table->get(getName());
     if (!info)
         return TYPE_ILLEGAL;
 
-    type_ = info->Type;
+    type_ = info->type_;
     return type_;
 }
 

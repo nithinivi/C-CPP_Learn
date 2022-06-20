@@ -1,4 +1,5 @@
-#include "../include/ast_statement.hpp"
+#include "../include/ast_statement.h"
+#include "../include/ast_expression.h"
 
 
 VariableDeclStatement::VariableDeclStatement(SymbolInfo *info) { info = info; }

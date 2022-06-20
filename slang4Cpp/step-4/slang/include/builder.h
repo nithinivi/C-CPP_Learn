@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #ifndef BUIDLER_H
 #include "../include/ast.h"
 #define BUIDLER_H
@@ -7,12 +8,12 @@ namespace slang {
 
 class AbstractExpression {};
 class ExpressionBuilder : public AbstractExpression {
-  char *exp_string;
+  std::string exp_string;
 
 public:
-  ExpressionBuilder(char *exp_string);
+  ExpressionBuilder(std::string exp_string);
   // ~ExpressionBuilder();
-  Exp *getExpression();
+  Exp* getExpression(CompilationContext *ctx);
 };
 
 } // namespace slang

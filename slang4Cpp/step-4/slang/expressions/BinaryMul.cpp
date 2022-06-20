@@ -1,5 +1,5 @@
-#include "../include/ast_expression.hpp"
-#include "../include/common.hpp"
+#include "../include/ast_expression.h"
+#include "../include/context.h"
 
 BinaryMul::BinaryMul(Exp *left, Exp *right) { //
     left = left;
