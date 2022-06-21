@@ -2,8 +2,8 @@
 #include "../include/context.h"
 
 BinaryMinus::BinaryMinus(Exp *left, Exp *right) { //
-    left = left;
-    right = right;
+    this->left = left;
+    this->right = right;
 }
 
 BinaryMinus::~BinaryMinus() {
@@ -29,7 +29,7 @@ SymbolInfo *BinaryMinus::evaluate(RuntimeContext *ctx) {
 
 TYPE_INFO BinaryMinus::typeCheck(CompilationContext *ctx) {
     TYPE_INFO left_t_ = left->typeCheck(ctx);
-    TYPE_INFO right_t_ = left->typeCheck(ctx);
+    TYPE_INFO right_t_ = right->typeCheck(ctx);
 
     if (left_t_ != right_t_ && right_t_ != TYPE_NUMERIC)
         throw "Type mismatch failure";

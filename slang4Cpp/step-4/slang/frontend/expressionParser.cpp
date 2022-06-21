@@ -49,6 +49,14 @@ Exp *RDParser::Factor(CompilationContext *ctx) {
     if (currentToken == TOK_DOUBLE) {
         retValue = new NumericConstant(getNumber());
         currentToken = getToken();
+    } else if (currentToken == TOK_STRING) {
+        retValue = new StringLiteral(getString());
+        currentToken = getToken();
+    } else if (currentToken == TOK_BOOL_FALSE ||
+               currentToken == TOK_BOOL_TRUE) {
+        retValue =
+            new BooleanConstant(currentToken == TOK_BOOL_TRUE ? true : false);
+        currentToken = getToken();
     }
 
     else if (currentToken == TOK_OPAREN) {
@@ -76,13 +84,13 @@ Exp *RDParser::Factor(CompilationContext *ctx) {
         std::string variable = getString();
         SymbolInfo *info = ctx->table->get(variable);
         if (!info)
-            throw "Undefine symbol";
+            throw "Undefined symbol";
         getNext();
         retValue = new Variable(info);
     }
 
     else {
-        throw std::runtime_error("Illegal Token");
+        throw "Illegal Token";
     }
     return retValue;
 }

@@ -28,18 +28,23 @@ void testFileScipt(char *f) {
     std::cout << file << std::endl;
 
     CompilationContext *ctx = new CompilationContext();
+    RuntimeContext *rtx = new RuntimeContext();
 
     RDParser *parser = new RDParser(file.c_str());
-    // std::vector<Stmt *> stmts = parser->Parse(ctx);
-    // for (Stmt *s : stmts)
-    //      s->execute(NULL);
+    std::vector<Stmt *> stmts = parser->Parse(ctx);
+    
+    for (Stmt *s : stmts)
+        s->execute(rtx);
+
     delete parser;
+    ;
     delete ctx;
 }
 
 int main(int argc, char *argv[]) {
     std::cout << argv[0] << " Version " << SLANG_VERSION_MAJOR << "."
               << SLANG_VERSION_MINOR << std::endl;
-    testFileScipt(argv[1]);
+    char str[] = "../slang_scripts/First.sl";
+    testFileScipt(str);
     return 0;
 }

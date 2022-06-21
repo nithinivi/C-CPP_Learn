@@ -2,8 +2,8 @@
 #include "../include/context.h"
 
 BinaryPlus::BinaryPlus(Exp *left, Exp *right) {
-    left = left;
-    right = right;
+    this->left = left;
+    this->right = right;
 }
 
 BinaryPlus::~BinaryPlus() {
@@ -39,7 +39,7 @@ SymbolInfo *BinaryPlus::evaluate(RuntimeContext *ctx) {
 
 TYPE_INFO BinaryPlus::typeCheck(CompilationContext *ctx) {
     TYPE_INFO left_t_ = left->typeCheck(ctx);
-    TYPE_INFO right_t_ = left->typeCheck(ctx);
+    TYPE_INFO right_t_ = right->typeCheck(ctx);
 
     if (left_t_ != right_t_ && right_t_ == TYPE_BOOL)
         throw "Type mismatch failure";

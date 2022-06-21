@@ -5,27 +5,27 @@
 #include <iostream>
 #include <string>
 
-Variable::Variable(SymbolInfo *symbolInfo) { symbolInfo = symbolInfo; }
+Variable::Variable(SymbolInfo *symbolInfo) { this->symbolInfo = symbolInfo; }
 
 Variable::Variable(CompilationContext *ctx, std::string name, double value) {
-    symbolInfo = new SymbolInfo();
-    symbolInfo->symbolName = name;
-    symbolInfo->doubleValue = value;
-    symbolInfo->type_ = TYPE_NUMERIC;
+    this->symbolInfo = new SymbolInfo();
+    this->symbolInfo->symbolName = name;
+    this->symbolInfo->doubleValue = value;
+    this->symbolInfo->type_ = TYPE_NUMERIC;
 }
 Variable::Variable(CompilationContext *ctx, std::string name, bool value) {
-    symbolInfo = new SymbolInfo();
-    symbolInfo->symbolName = name;
-    symbolInfo->boolValue = value;
-    symbolInfo->type_ = TYPE_BOOL;
+    this->symbolInfo = new SymbolInfo();
+    this->symbolInfo->symbolName = name;
+    this->symbolInfo->boolValue = value;
+    this->symbolInfo->type_ = TYPE_BOOL;
 }
 
 Variable::Variable(CompilationContext *ctx, std::string name,
                    std::string value) {
-    symbolInfo = new SymbolInfo();
-    symbolInfo->symbolName = name;
-    symbolInfo->stringValue = value;
-    symbolInfo->type_ = TYPE_STRING;
+    this->symbolInfo = new SymbolInfo();
+    this->symbolInfo->symbolName = name;
+    this->symbolInfo->stringValue = value;
+    this->symbolInfo->type_ = TYPE_STRING;
 }
 Variable::~Variable() { delete symbolInfo; }
 

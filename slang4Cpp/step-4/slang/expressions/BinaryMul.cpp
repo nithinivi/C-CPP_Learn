@@ -2,8 +2,8 @@
 #include "../include/context.h"
 
 BinaryMul::BinaryMul(Exp *left, Exp *right) { //
-    left = left;
-    right = right;
+    this->left = left;
+    this->right = right;
 }
 
 BinaryMul::~BinaryMul() {
@@ -29,7 +29,7 @@ SymbolInfo *BinaryMul::evaluate(RuntimeContext *ctx) {
 
 TYPE_INFO BinaryMul::typeCheck(CompilationContext *ctx) {
     TYPE_INFO left_t_ = left->typeCheck(ctx);
-    TYPE_INFO right_t_ = left->typeCheck(ctx);
+    TYPE_INFO right_t_ = right->typeCheck(ctx);
 
     if (left_t_ != right_t_ && right_t_ != TYPE_NUMERIC)
         throw "Type mismatch failure";

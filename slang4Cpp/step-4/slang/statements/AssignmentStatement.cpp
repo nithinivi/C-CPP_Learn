@@ -2,12 +2,12 @@
 #include "../include/ast_expression.h"
 
 AssignmentStatement::AssignmentStatement(Variable *var, Exp *exp) {
-  var = var ;
-  exp = exp;
+  this->var = var ;
+  this->exp = exp;
 }
 AssignmentStatement::AssignmentStatement(SymbolInfo *info, Exp *exp) {
-  var = new Variable(info);
-  exp = exp;
+  this->var = new Variable(info);
+  this->exp = exp;
     
 }
 AssignmentStatement::~AssignmentStatement() {

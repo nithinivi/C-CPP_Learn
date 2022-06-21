@@ -25,7 +25,7 @@ Stmt *RDParser::Statement(CompilationContext *ctx) {
     case TOK_VAR_STRING:
     case TOK_VAR_BOOL:
         returnValue = ParseVariableStatement(ctx);
-        getToken();
+        getNext();
         break;
     case TOK_PRINT:
         returnValue = ParsePrintStatement(ctx);
@@ -47,19 +47,19 @@ Stmt *RDParser::Statement(CompilationContext *ctx) {
 
 Stmt *RDParser::ParsePrintStatement(CompilationContext *ctx) {
     getNext();
-    Exp *exp = Expr(ctx);
+    Exp *expr = Expr(ctx);
     if (currentToken != TOK_SEMI)
         throw std::runtime_error("Expected ;");
-    PrintStatement *spt = new PrintStatement(exp);
+    PrintStatement *spt = new PrintStatement(expr);
     return spt;
 }
 
 Stmt *RDParser::ParsePrintLnStatement(CompilationContext *ctx) {
     getNext();
-    Exp *exp = Expr(ctx);
+    Exp *expr = Expr(ctx);
     if (currentToken != TOK_SEMI)
         throw std::runtime_error("Expected ;");
-    PrintLnStatement *spt = new PrintLnStatement(exp);
+    PrintLnStatement *spt = new PrintLnStatement(expr);
     return spt;
 }
 
@@ -101,15 +101,15 @@ Stmt *RDParser::ParseAssignmentStatement(CompilationContext *ctx) {
 
     // evaluate expression
     getNext();
-    Exp *exp = Expr(ctx);
+    Exp *expr = Expr(ctx);
 
     // type checking
-    if (exp->typeCheck(ctx) != info->type_)
+    if (expr->typeCheck(ctx) != info->type_)
         throw "type mismatch";
 
     // check for ;
     if (currentToken != TOK_SEMI)
         throw "Expected semi";
 
-    return new AssignmentStatement(info, exp);
+    return new AssignmentStatement(info, expr);
 }

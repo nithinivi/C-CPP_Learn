@@ -7,13 +7,6 @@
 #include <stdexcept>
 #include <string>
 
-std::string to_string(char *a, int size) {
-    std::string str = "";
-    for (int i = 0; i < size; i++)
-        str += a[i];
-    return str;
-}
-
 Lexer::Lexer(std::string exp) {
     this->exp = exp;
     this->length = exp.length();
@@ -46,6 +39,10 @@ start:
     case '\r':
         index++;
         goto start;
+    case '=':
+        tok = TOK_ASSIGN;
+        index++;
+        break;
     case '+':
         tok = TOK_PLUS;
         index++;
@@ -55,6 +52,10 @@ start:
         index++;
         break;
     case '/':
+        if (exp[index + 1] == '/') {
+            skipToEOL();
+            goto start;
+        }
         tok = TOK_DIV;
         index++;
         break;
@@ -74,14 +75,33 @@ start:
         tok = TOK_SEMI;
         index++;
         break;
+
+    case '"':
+        int numStartIndex;
+        numStartIndex = index;
+
+        while (index < length && exp[index] != '"')
+            index++;
+
+        if (index == length) {
+            tok = ILLEGAL_TOKEN;
+            return tok;
+        }
+
+        last_str = exp.substr(numStartIndex, index - numStartIndex);
+
+        tok = TOK_STRING;
+        index++;
+        break;
+
     default:
         if (isdigit(exp[index])) {
             int numStartIndex = index;
             while (index < length && isdigit(exp[index]))
                 index++;
 
-            std::size_t lenOfNum = index - numStartIndex;
-            std::string numStr = exp.substr(numStartIndex, lenOfNum);
+            std::string numStr =
+                exp.substr(numStartIndex, index - numStartIndex);
             number = std::stod(numStr);
             tok = TOK_DOUBLE;
 
@@ -90,9 +110,7 @@ start:
             while (index < length && isalpha(exp[index]))
                 index++;
 
-            std::size_t lenOfNum = index - numStartIndex;
-            last_str = exp.substr(numStartIndex, lenOfNum);
-          
+            last_str = exp.substr(numStartIndex, index - numStartIndex);
 
             for (int i = 0; i < KEYWORDS_COUNT; ++i) {
                 if (last_str == value_table[i]->value) {
@@ -106,6 +124,13 @@ start:
                 "Unknown character found while tokenizing ");
     }
 
-    // std::cout << tok << std::endl;
     return tok;
+}
+
+void Lexer::skipToEOL() {
+    while (exp[index] != '\n' && index < length)
+        index++;
+
+    if (index == length) 
+        throw "error while parsing comments";
 }
