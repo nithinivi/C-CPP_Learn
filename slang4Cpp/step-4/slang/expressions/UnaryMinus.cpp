@@ -1,7 +1,6 @@
 #include "../include/ast_expression.h"
 
-
-UnaryMinus::UnaryMinus(Exp *expr) { expr = expr; }
+UnaryMinus::UnaryMinus(Exp *expr) { this->expr = expr; }
 
 UnaryMinus::~UnaryMinus() { delete expr; }
 
@@ -11,7 +10,7 @@ SymbolInfo *UnaryMinus::evaluate(RuntimeContext *ctx) {
     if (eval_exp->type_ == TYPE_NUMERIC) {
         SymbolInfo *info = new SymbolInfo();
         info->type_ = TYPE_NUMERIC;
-        info->stringValue = -eval_exp->doubleValue;
+        info->doubleValue = -eval_exp->doubleValue;
         info->symbolName = "";
         return info;
     } else

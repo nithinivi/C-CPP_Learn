@@ -22,6 +22,7 @@ Lexer::Lexer(std::string exp) {
 }
 
 double Lexer::getNumber() { return number; }
+
 std::string Lexer::getString() { return last_str; }
 
 Token Lexer::getToken() {

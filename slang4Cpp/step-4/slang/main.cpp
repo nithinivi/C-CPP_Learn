@@ -25,14 +25,13 @@ std::string getScriptFile(std::string filepath) {
 
 void testFileScipt(char *f) {
     std::string file = getScriptFile(f);
-    std::cout << file << std::endl;
 
     CompilationContext *ctx = new CompilationContext();
     RuntimeContext *rtx = new RuntimeContext();
 
     RDParser *parser = new RDParser(file.c_str());
     std::vector<Stmt *> stmts = parser->Parse(ctx);
-    
+
     for (Stmt *s : stmts)
         s->execute(rtx);
 
@@ -42,9 +41,15 @@ void testFileScipt(char *f) {
 }
 
 int main(int argc, char *argv[]) {
-    std::cout << argv[0] << " Version " << SLANG_VERSION_MAJOR << "."
-              << SLANG_VERSION_MINOR << std::endl;
+    std::cout << argv[0] << "\n SLANG Version " << SLANG_VERSION_MAJOR << "."
+              << SLANG_VERSION_MINOR << "\n\n"
+              << std::endl;
+
     char str[] = "../slang_scripts/First.sl";
-    testFileScipt(str);
+    if (argv[1])
+        testFileScipt(argv[0]);
+    else
+        testFileScipt(str);
+
     return 0;
 }

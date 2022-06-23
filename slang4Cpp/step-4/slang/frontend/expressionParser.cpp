@@ -83,8 +83,10 @@ Exp *RDParser::Factor(CompilationContext *ctx) {
         Exp *expression = Factor(ctx);
         if (l_token == TOK_PLUS)
             retValue = new UnaryPlus(expression);
-        else
+        else if (l_token == TOK_SUB)
             retValue = new UnaryMinus(expression);
+        else
+            throw "error";
     }
 
     else if (currentToken == TOK_UNQUOTED_STRING) {
