@@ -39,7 +39,7 @@ Exp *RDParser::Term(CompilationContext *ctx) {
     while (currentToken == TOK_MUL || currentToken == TOK_DIV) {
         l_token = currentToken;
         getNext();
-        Exp *right = Term(ctx);
+        Exp *right = Factor(ctx); // for math to work in this universe
         if (l_token == TOK_MUL)
             retValue = new BinaryMul(retValue, right);
         else

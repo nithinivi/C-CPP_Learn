@@ -65,8 +65,8 @@ Exp *RDParser::Factor(CompilationContext *ctx) {
     }
 
     else if (currentToken == TOK_OPAREN) {
-        currentToken = getNext();
         retValue = Expr(ctx);
+        currentToken = getNext();
 
         if (currentToken != TOK_CPAREN) {
             if (retValue)

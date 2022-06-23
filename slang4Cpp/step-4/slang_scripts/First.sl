@@ -1,16 +1,2 @@
-STRING g;
-STRING n;
-NUMERIC x;
-
-
-g= " VARGESE";
-n = "NITHIN";
-PRINTLINE n + g;
-
-x= 2*3 * -(4*5);
-PRINTLINE x;
-
-BOOLEAN d;
-d= TRUE;
-PRINTLINE d;
+PRINTLINE 6/2 *3    ;
 
