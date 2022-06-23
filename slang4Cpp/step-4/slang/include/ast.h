@@ -10,7 +10,6 @@
 
 #define AST_H
 
-
 // Expression
 
 class Exp {
@@ -32,6 +31,5 @@ public:
     virtual SymbolInfo *execute(RuntimeContext *ctx) = 0; //
     virtual ~Stmt();
 };
-
 
 #endif /* AST_H */

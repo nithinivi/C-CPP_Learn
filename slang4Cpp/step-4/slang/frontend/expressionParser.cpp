@@ -12,18 +12,20 @@ Token RDParser::getNext() {
 }
 
 Exp *RDParser::CallExpr(CompilationContext *ctx) {
-    currentToken = getToken();
+    currentToken = getNext();
     return Expr(ctx);
 }
 
 Exp *RDParser::Expr(CompilationContext *ctx) {
+    Token l_token;
     Exp *retValue = Term(ctx);
     while (currentToken == TOK_PLUS || currentToken == TOK_SUB) //
     {
+        l_token = currentToken;
         getNext();
         Exp *right = Expr(ctx);
 
-        if (lastToken == TOK_PLUS)
+        if (l_token == TOK_PLUS)
             retValue = new BinaryPlus(retValue, right);
         else
             retValue = new BinaryMinus(retValue, right);
@@ -32,11 +34,13 @@ Exp *RDParser::Expr(CompilationContext *ctx) {
 }
 
 Exp *RDParser::Term(CompilationContext *ctx) {
+    Token l_token;
     Exp *retValue = Factor(ctx);
     while (currentToken == TOK_MUL || currentToken == TOK_DIV) {
+        l_token = currentToken;
         getNext();
         Exp *right = Term(ctx);
-        if (lastToken == TOK_MUL)
+        if (l_token == TOK_MUL)
             retValue = new BinaryMul(retValue, right);
         else
             retValue = new BinaryDiv(retValue, right);
@@ -45,22 +49,23 @@ Exp *RDParser::Term(CompilationContext *ctx) {
 }
 
 Exp *RDParser::Factor(CompilationContext *ctx) {
+    Token l_token;
     Exp *retValue;
     if (currentToken == TOK_DOUBLE) {
         retValue = new NumericConstant(getNumber());
-        currentToken = getToken();
+        currentToken = getNext();
     } else if (currentToken == TOK_STRING) {
         retValue = new StringLiteral(getString());
-        currentToken = getToken();
+        currentToken = getNext();
     } else if (currentToken == TOK_BOOL_FALSE ||
                currentToken == TOK_BOOL_TRUE) {
         retValue =
             new BooleanConstant(currentToken == TOK_BOOL_TRUE ? true : false);
-        currentToken = getToken();
+        currentToken = getNext();
     }
 
     else if (currentToken == TOK_OPAREN) {
-        currentToken = getToken();
+        currentToken = getNext();
         retValue = Expr(ctx);
 
         if (currentToken != TOK_CPAREN) {
@@ -68,13 +73,15 @@ Exp *RDParser::Factor(CompilationContext *ctx) {
                 delete retValue;
             throw std::runtime_error("Missing Closing Parenthesis");
         }
-        currentToken = getToken();
+        currentToken = getNext();
     }
 
     else if (currentToken == TOK_PLUS || currentToken == TOK_SUB) {
+        l_token = currentToken;
         getNext();
+
         Exp *expression = Factor(ctx);
-        if (lastToken == TOK_PLUS)
+        if (l_token == TOK_PLUS)
             retValue = new UnaryPlus(expression);
         else
             retValue = new UnaryMinus(expression);

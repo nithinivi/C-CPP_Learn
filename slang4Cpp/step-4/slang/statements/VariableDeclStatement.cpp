@@ -6,8 +6,8 @@ VariableDeclStatement::VariableDeclStatement(SymbolInfo *info) {
 }
 
 VariableDeclStatement::~VariableDeclStatement() {
-    // delete info;
-    // delete var;
+    delete info;
+    delete var;
 }
 
 SymbolInfo *VariableDeclStatement::execute(RuntimeContext *ctx) {

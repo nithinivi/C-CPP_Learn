@@ -5,29 +5,29 @@
 #include <iostream>
 #include <string>
 
-Variable::Variable(SymbolInfo *symbolInfo) { this->symbolInfo = symbolInfo; }
+Variable::Variable(SymbolInfo *symbolInfo) { this->info = symbolInfo; }
 
 Variable::Variable(CompilationContext *ctx, std::string name, double value) {
-    this->symbolInfo = new SymbolInfo();
-    this->symbolInfo->symbolName = name;
-    this->symbolInfo->doubleValue = value;
-    this->symbolInfo->type_ = TYPE_NUMERIC;
+    this->info = new SymbolInfo();
+    this->info->symbolName = name;
+    this->info->doubleValue = value;
+    this->info->type_ = TYPE_NUMERIC;
 }
 Variable::Variable(CompilationContext *ctx, std::string name, bool value) {
-    this->symbolInfo = new SymbolInfo();
-    this->symbolInfo->symbolName = name;
-    this->symbolInfo->boolValue = value;
-    this->symbolInfo->type_ = TYPE_BOOL;
+    this->info = new SymbolInfo();
+    this->info->symbolName = name;
+    this->info->boolValue = value;
+    this->info->type_ = TYPE_BOOL;
 }
 
 Variable::Variable(CompilationContext *ctx, std::string name,
                    std::string value) {
-    this->symbolInfo = new SymbolInfo();
-    this->symbolInfo->symbolName = name;
-    this->symbolInfo->stringValue = value;
-    this->symbolInfo->type_ = TYPE_STRING;
+    this->info = new SymbolInfo();
+    this->info->symbolName = name;
+    this->info->stringValue = value;
+    this->info->type_ = TYPE_STRING;
 }
-Variable::~Variable() { delete symbolInfo; }
+Variable::~Variable() { delete info; }
 
 SymbolInfo *Variable::evaluate(RuntimeContext *ctx) {
     SymbolTable *table = ctx->symbolTable;
@@ -53,4 +53,4 @@ TYPE_INFO Variable::typeCheck(CompilationContext *ctx) {
 // should only be invoked after using typecheck on AST
 TYPE_INFO Variable::getType() { return type_; }
 
-std::string Variable::getName() { return symbolInfo->symbolName; }
+std::string Variable::getName() { return info->symbolName; }

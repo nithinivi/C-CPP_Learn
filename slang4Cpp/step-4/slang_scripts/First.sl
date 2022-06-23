@@ -1,3 +1,5 @@
-NUMERIC a; 
-a = 2; 
-PRINTLINE a; 
+STRING g;
+STRING n;
+g= " VARGESE";
+n = "NITHIN";
+PRINTLINE n + g;

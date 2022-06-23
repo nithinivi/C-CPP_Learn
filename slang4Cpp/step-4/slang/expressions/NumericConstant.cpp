@@ -2,22 +2,18 @@
 #include "../include/common.h"
 
 NumericConstant::NumericConstant(double value) {
-    symbolInfo = new SymbolInfo();
-    symbolInfo->symbolName = "";
-    symbolInfo->doubleValue = value;
-    symbolInfo->type_ = TYPE_NUMERIC;
+    this->info = new SymbolInfo();
+    this->info->symbolName = "";
+    this->info->doubleValue = value;
+    this->info->type_ = TYPE_NUMERIC;
 }
 
-NumericConstant::~NumericConstant() {
-  delete symbolInfo;
-}
+NumericConstant::~NumericConstant() { delete info; }
 
-SymbolInfo *NumericConstant::evaluate(RuntimeContext *ctx) {
-    return symbolInfo;
-}
+SymbolInfo *NumericConstant::evaluate(RuntimeContext *ctx) { return info; }
 
 TYPE_INFO NumericConstant::typeCheck(CompilationContext *ctx) {
-    return symbolInfo->type_;
+    return info->type_;
 }
 
-TYPE_INFO NumericConstant::getType() { return symbolInfo->type_; }
+TYPE_INFO NumericConstant::getType() { return info->type_; }

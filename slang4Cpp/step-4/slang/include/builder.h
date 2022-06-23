@@ -12,7 +12,7 @@ class ExpressionBuilder : public AbstractExpression {
 
 public:
   ExpressionBuilder(std::string exp_string);
-  // ~ExpressionBuilder();
+  //~ExpressionBuilder();
   Exp* getExpression(CompilationContext *ctx);
 };
 

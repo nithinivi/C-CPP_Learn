@@ -27,16 +27,16 @@ Stmt *RDParser::Statement(CompilationContext *ctx) {
         returnValue = ParseVariableStatement(ctx);
         getNext();
         break;
+    case TOK_UNQUOTED_STRING:
+        returnValue = ParseAssignmentStatement(ctx);
+        getNext();
+        break;
     case TOK_PRINT:
         returnValue = ParsePrintStatement(ctx);
         getNext();
         break;
     case TOK_PRINTLN:
         returnValue = ParsePrintLnStatement(ctx);
-        getNext();
-        break;
-    case TOK_UNQUOTED_STRING:
-        returnValue = ParseAssignmentStatement(ctx);
         getNext();
         break;
     default:
@@ -50,8 +50,7 @@ Stmt *RDParser::ParsePrintStatement(CompilationContext *ctx) {
     Exp *expr = Expr(ctx);
     if (currentToken != TOK_SEMI)
         throw std::runtime_error("Expected ;");
-    PrintStatement *spt = new PrintStatement(expr);
-    return spt;
+    return new PrintStatement(expr);
 }
 
 Stmt *RDParser::ParsePrintLnStatement(CompilationContext *ctx) {
@@ -59,8 +58,7 @@ Stmt *RDParser::ParsePrintLnStatement(CompilationContext *ctx) {
     Exp *expr = Expr(ctx);
     if (currentToken != TOK_SEMI)
         throw std::runtime_error("Expected ;");
-    PrintLnStatement *spt = new PrintLnStatement(expr);
-    return spt;
+    return new PrintLnStatement(expr);
 }
 
 Stmt *RDParser::ParseVariableStatement(CompilationContext *ctx) {

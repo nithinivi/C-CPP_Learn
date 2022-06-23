@@ -78,8 +78,9 @@ start:
 
     case '"':
         int numStartIndex;
+        // to the next " qoutes
+        index++;
         numStartIndex = index;
-
         while (index < length && exp[index] != '"')
             index++;
 
@@ -131,6 +132,6 @@ void Lexer::skipToEOL() {
     while (exp[index] != '\n' && index < length)
         index++;
 
-    if (index == length) 
+    if (index == length)
         throw "error while parsing comments";
 }

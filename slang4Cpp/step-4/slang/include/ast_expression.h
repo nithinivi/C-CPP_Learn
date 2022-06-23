@@ -1,9 +1,9 @@
 #pragma once
 #ifndef AST_EXPRESSION_H
 
+#include "ast.h"
 #include "common.h"
 #include "context.h"
-#include "ast.h"
 
 #define AST_EXPRESSION_H
 
@@ -20,7 +20,7 @@ public:
 };
 
 class NumericConstant : public Exp {
-    SymbolInfo *symbolInfo;
+    SymbolInfo *info;
 
 public:
     NumericConstant(double value);
@@ -44,7 +44,7 @@ public:
 };
 
 class Variable : public Exp {
-    SymbolInfo *symbolInfo;
+    SymbolInfo *info;
     TYPE_INFO type_;
 
 public:
@@ -62,7 +62,7 @@ public:
 };
 
 class BinaryPlus : public Exp {
-    Exp *left , *right;
+    Exp *left, *right;
     TYPE_INFO type_;
 
 public:
@@ -139,7 +139,4 @@ public:
     TYPE_INFO getType();
 };
 
-
-
 #endif /* AST_EXPRESSION_H */
-

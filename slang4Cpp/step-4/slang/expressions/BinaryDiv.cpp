@@ -18,7 +18,7 @@ SymbolInfo *BinaryDiv::evaluate(RuntimeContext *ctx) {
     if (eval_l->type_ == TYPE_NUMERIC && eval_r->type_ == TYPE_NUMERIC) {
         SymbolInfo *info = new SymbolInfo();
         info->type_ = TYPE_NUMERIC;
-        info->stringValue = eval_l->doubleValue / eval_r->doubleValue;
+        info->doubleValue = eval_l->doubleValue / eval_r->doubleValue;
         info->symbolName = "";
         return info;
     } else
