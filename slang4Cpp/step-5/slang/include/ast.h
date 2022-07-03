@@ -16,10 +16,11 @@ class Exp {
 
 public:
     Exp();
+    virtual ~Exp();
     virtual SymbolInfo *evaluate(RuntimeContext *ctx) = 0;
     virtual TYPE_INFO typeCheck(CompilationContext *ctx) = 0;
     virtual TYPE_INFO getType() = 0;
-    virtual ~Exp();
+
 };
 
 // Statement
