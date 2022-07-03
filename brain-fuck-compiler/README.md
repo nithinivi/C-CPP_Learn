@@ -9,7 +9,7 @@ Brainfuck is a weird looking programming language and keeps every promise its na
 -------.>>+.>++.
 ```
 
-This bfc is ported from this from https://github.com/v4run/bfc and largely influenced by this [blog](https://thorstenball.com/blog/2017/01/04/a-virtual-brainfuck-machine-in-go/).Thanks to @v4run &@mrnugget for the same. 
+This bfc is ported from this from https://github.com/v4run/bfc and largely influenced by this [blog](https://thorstenball.com/blog/2017/01/04/a-virtual-brainfuck-machine-in-go/).Thanks to [@v4run](https://github.com/v4run) & [@mrnugget](https://github.com/mrnugget) for the same. 
 
 
 The componets of the Languages are as follows. 
