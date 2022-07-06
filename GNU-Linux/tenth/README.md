@@ -1,9 +1,11 @@
-```
+
+
+```commandline
 gcc -c -o tenth_a.o tenth_a.cpp
 objdump -d -S tenth_a.o
 ```
 
-
+```text
 tenth_a.o:     file format elf64-x86-64
 
 
@@ -20,3 +22,13 @@ Disassembly of section .text:
   14:	01 d0                	add    %edx,%eax
   16:	5d                   	pop    %rbp
   17:	c3                   	retq   
+
+```
+
+```commandline
+g++ -o tenth.o tenth.cpp  -fno-stack-protector && ./tenth.o
+```
+
+- fno-stack-protector 
+   . Is used for disabling canaries protection of gcc 
+   . Else gcc genrates stack smashing 
