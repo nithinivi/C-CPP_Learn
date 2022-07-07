@@ -30,7 +30,7 @@ Disassembly of section .text:
 ```commandline
 g++ -o tenth.o tenth.cpp  -fno-stack-protector && ./tenth.o
 ```
-Explanation for     *(((unsigned long)Code) & ~(getpagesize() - 1))*
+Explanation for     **(((unsigned long)Code) & ~(getpagesize() - 1))**
 
 ```Text
 00000000000000000001000000000000 getpagesize() 
@@ -43,3 +43,7 @@ Explanation for     *(((unsigned long)Code) & ~(getpagesize() - 1))*
 - fno-stack-protector 
    
    Its used for disabling canaries protection of gcc. or while on runtime stack smashing detection can result in core dump 
+
+
+### Further Reading 
+    - https://valgrind.org/
