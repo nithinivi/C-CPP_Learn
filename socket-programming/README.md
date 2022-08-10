@@ -1,6 +1,6 @@
 build using `make`
 
-Port of File **Transfer Protocol** by Praseed Pai
+Port of **File Transfer Protocol** by Praseed Pai
 
 Reference
 - https://hpc-tutorials.llnl.gov/posix/creating_and_terminating/
