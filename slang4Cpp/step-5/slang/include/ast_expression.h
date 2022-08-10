@@ -4,7 +4,7 @@
 #include "ast.h"
 #include "common.h"
 #include "context.h"
-
+#include "llvm/IR/Value.h"
 #define AST_EXPRESSION_H
 
 class BooleanConstant : public Exp {
@@ -29,6 +29,7 @@ public:
     SymbolInfo *evaluate(RuntimeContext *ctx);
     TYPE_INFO typeCheck(CompilationContext *ctx);
     TYPE_INFO getType();
+    llvm::Value *codegen();
 };
 
 class StringLiteral : public Exp {

@@ -3,6 +3,8 @@
 #ifndef AST_H
 #include "common.h"
 #include "context.h"
+#include "llvm/IR/Value.h"
+
 #include <cstddef>
 #include <iostream>
 #include <stdexcept>
@@ -20,7 +22,7 @@ public:
     virtual SymbolInfo *evaluate(RuntimeContext *ctx) = 0;
     virtual TYPE_INFO typeCheck(CompilationContext *ctx) = 0;
     virtual TYPE_INFO getType() = 0;
-
+    virtual llvm::Value *codegen() = 0;
 };
 
 // Statement

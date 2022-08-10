@@ -1,5 +1,7 @@
 #include "../include/ast_expression.h"
+
 #include "../include/common.h"
+#include "llvm/IR/Constants.h"
 
 NumericConstant::NumericConstant(double value) {
     this->info = new SymbolInfo();
@@ -17,3 +19,7 @@ TYPE_INFO NumericConstant::typeCheck(CompilationContext *ctx) {
 }
 
 TYPE_INFO NumericConstant::getType() { return info->type_; }
+
+llvm::Value *NumericConstant::codegen() {
+    return llvm::ConstantFP::get(*TheContext, llvm::APFloat(info->doubleValue))
+}
