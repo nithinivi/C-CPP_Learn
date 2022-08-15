@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+#include "../contexts/Symbol.hpp"
+#include "../meta/Meta.hpp"
 #include "Expression.hpp"
 #include "Visitor.hpp"
 
@@ -12,7 +14,7 @@ Expr::Expr() {}
 NumericConstant::NumericConstant(double value) { this->value = value; };
 NumericConstant::~NumericConstant(){};
 
-double NumericConstant::accept(IExprVisitor& expr_visitor) {
+Symbol NumericConstant::accept(IExprVisitor& expr_visitor) {
     return expr_visitor.visit(*this);
 }
 
@@ -27,7 +29,7 @@ BinaryExpr::BinaryExpr(Expr* left, Expr* right, OPERATOR op) {
 }
 BinaryExpr::~BinaryExpr() {}
 
-double BinaryExpr::accept(IExprVisitor& expr_visitor) {
+Symbol BinaryExpr::accept(IExprVisitor& expr_visitor) {
     return expr_visitor.visit(*this);
 }
 
@@ -42,7 +44,7 @@ UnaryExpr::UnaryExpr(Expr* exp, OPERATOR op) {
     this->op = op;
 }
 UnaryExpr::~UnaryExpr() {}
-double UnaryExpr::accept(IExprVisitor& expr_visitor) {
+Symbol UnaryExpr::accept(IExprVisitor& expr_visitor) {
     return expr_visitor.visit(*this);
 }
 

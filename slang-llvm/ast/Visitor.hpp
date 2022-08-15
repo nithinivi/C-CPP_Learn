@@ -3,11 +3,10 @@ class NumericConstant;
 class BinaryExpr;
 class UnaryExpr;
 class IExprVisitor;
+class Symbol;
 
 #ifndef VISITOR_H
 #define VISITOR_H
-
-#include "Symbol.hpp"
 
 class IExprVisitor {
 public:

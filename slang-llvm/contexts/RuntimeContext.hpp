@@ -7,7 +7,7 @@ class RuntimeContext {
     SymbolTable* symbolTable;
 
 public:
-    RuntimeContext() { SymbolTable = new SymbolTable(); };
+    RuntimeContext() { SymbolTable* symbolTable = new SymbolTable(); };
 };
 
 #endif // RUNTIMECONTEXT_HPP

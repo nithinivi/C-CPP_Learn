@@ -1,8 +1,7 @@
-#pragma once
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "Expression.hpp"
+#include "../ast/Expression.hpp"
 #include <string>
 
 enum Token {

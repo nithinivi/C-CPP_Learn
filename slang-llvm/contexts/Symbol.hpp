@@ -4,7 +4,7 @@
 #if !defined(SYMBOL_HPP)
 #define SYMBOL_HPP
 
-#include "meta.hpp"
+#include "../meta/Meta.hpp"
 
 class Symbol {
 private:
