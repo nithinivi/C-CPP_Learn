@@ -15,26 +15,26 @@ void Cleanup() {}
 int SocketGetLastError() { return 0; }
 
 class CClientSocket {
-    char m_ServerName[ 255 ];
+    char m_ServerName[255];
     int m_PortNumber;
     struct sockaddr_in m_Server;
-    struct hostent* m_HostPointer;
+    struct hostent *m_HostPointer;
     unsigned int m_addr;
     SOCKET m_ConnectSock;
 
 public:
-    CClientSocket(char* ServerName, int PortNumber) {
+    CClientSocket(char *ServerName, int PortNumber) {
         strcpy(m_ServerName, ServerName);
         m_PortNumber = PortNumber;
     }
     SOCKET GetSocket() { return m_ConnectSock; }
     bool Resolve() {
 
-        if (isalpha(m_ServerName[ 0 ])) {
+        if (isalpha(m_ServerName[0])) {
             m_HostPointer = gethostbyname(m_ServerName);
         } else { /* Convert nnn.nnn address to a usable one */
             m_addr = inet_addr(m_ServerName);
-            m_HostPointer = gethostbyaddr((char*)&m_addr, 4, AF_INET);
+            m_HostPointer = gethostbyaddr((char *)&m_addr, 4, AF_INET);
         }
         if (m_HostPointer == NULL) {
             return false;
@@ -55,15 +55,15 @@ public:
             return false;
         }
 
-        if (connect(m_ConnectSock, (struct sockaddr*)&m_Server,
+        if (connect(m_ConnectSock, (struct sockaddr *)&m_Server,
                     sizeof(m_Server)) < 0) {
             return false;
         }
         return true;
     }
 
-    bool Send(void* buffer, int len) {
-        int RetVal = send(m_ConnectSock, (const char*)buffer, len, 0);
+    bool Send(void *buffer, int len) {
+        int RetVal = send(m_ConnectSock, (const char *)buffer, len, 0);
         if (RetVal == -1) {
             return false;
         }
@@ -71,9 +71,9 @@ public:
         return true;
     }
 
-    bool Receive(void* buffer, int* len) {
+    bool Receive(void *buffer, int *len) {
         cout << "......................Received The Function.... " << endl;
-        int RetVal = recv(m_ConnectSock, (char*)buffer, *len, 0);
+        int RetVal = recv(m_ConnectSock, (char *)buffer, *len, 0);
         cout << "......................Received The Function.... " << RetVal
              << endl;
 
@@ -95,18 +95,18 @@ public:
 bool SendEOF(SOCKET s) {
 
     T_FILE_EOF eof = MakeEof();
-    int bytes_send = send(s, (char*)&eof, sizeof(eof), 0);
+    int bytes_send = send(s, (char *)&eof, sizeof(eof), 0);
     return bytes_send > 0;
 }
 
-bool ReadSocketBuffer(SOCKET s, char* bfr, int size) {
+bool ReadSocketBuffer(SOCKET s, char *bfr, int size) {
     int RetVal = recv(s, bfr, size, 0);
     if (RetVal == 0 || RetVal == -1)
         return false;
     return true;
 }
 
-bool WriteSocketBuffer(SOCKET s, char* bfr, int size) {
+bool WriteSocketBuffer(SOCKET s, char *bfr, int size) {
     int RetVal = send(s, bfr, size, 0);
     if (RetVal == 0 || RetVal == -1)
         return false;
@@ -116,27 +116,27 @@ bool WriteSocketBuffer(SOCKET s, char* bfr, int size) {
 bool SendAcknowledgement(SOCKET s) {
 
     T_ACK ack = MakeAck();
-    int bytes_send = send(s, (char*)&ack, sizeof(ack), 0);
+    int bytes_send = send(s, (char *)&ack, sizeof(ack), 0);
     return bytes_send > 0;
 }
 
-long ComputeFileSize(char* file_name) {
+long ComputeFileSize(char *file_name) {
     ifstream in_file(file_name, ios::binary);
     in_file.seekg(0, ios::end);
     int file_size = in_file.tellg();
     return (long)file_size;
 };
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 
-    if (argc != 4) {
-        printf("insufficient command line arguments\n");
-        return 0;
-    }
+    // if (argc != 4) {
+    //     printf("insufficient command line arguments\n");
+    //     return 0;
+    // }
 
-    char* file_name = argv[ 1 ];
-    char* server_name = argv[ 2 ];
-    int port = atoi(argv[ 3 ]);
+    char file_name[] = "/home/nithin/learn/c-cpp/socket-programming/makefile";
+    char server_name[] = "127.0.0.1";
+    int port = atoi("3040");
     int size_file = ComputeFileSize(file_name);
     printf("%s\t%dn", file_name, size_file);
 
@@ -155,9 +155,9 @@ int main(int argc, char** argv) {
     c_sock.Send(&send_packet, sizeof(send_packet));
 
     //------------- Waiting for Ack Packet
-    char buffer[ 32 ];
+    char buffer[32];
     int num_read = 32;
-    sleep(2000);
+    sleep(2);
     if (!c_sock.Receive(buffer, &num_read)) {
         cout << "Could not Receive Packet " << endl;
         return 1;
@@ -190,18 +190,18 @@ int main(int argc, char** argv) {
     int chunk_size = sizeof(T_FILE_CHUNK) + 5000;
     int packet_sequence = 1;
     // T_FILE_CHUNK * chunk = (T_FILE_CHUNK *) malloc( chunk_size );
-    FILE* fp = fopen(file_name, "rb");
+    FILE *fp = fopen(file_name, "rb");
     if (fp == nullptr) {
 
         cout << "Failed to Open File = " << file_name << endl;
         return 1;
     }
     cout << "Opened File.............." << file_name << endl;
-    char read_buffer[ 4096 ];
+    char read_buffer[4096];
     while ((num = fread(read_buffer, 1, 4096, fp)) == 4096) {
         cout << "Sequence ..... " << packet_sequence << endl;
         cout << "Sending Bytes..............." << num << endl;
-        T_FILE_CHUNK* chunk =
+        T_FILE_CHUNK *chunk =
             MakeBufferPack(read_buffer, 4096, packet_sequence++);
         cout << "Above sentence................" << endl;
         if (!c_sock.Send(chunk, chunk_size)) {
@@ -216,7 +216,7 @@ int main(int argc, char** argv) {
     cout << "Coming out of the Send Loop "
          << "Send Residue" << endl;
     if (num > 0) {
-        T_FILE_CHUNK* chunk =
+        T_FILE_CHUNK *chunk =
             MakeBufferPack(read_buffer, num, packet_sequence++);
         if (!c_sock.Send(chunk, chunk_size)) {
             cout << "Send Failure " << endl;
