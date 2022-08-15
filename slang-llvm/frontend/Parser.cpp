@@ -1,5 +1,6 @@
-#include "parser.hpp"
-#include "expression.hpp"
+#include "Parser.hpp"
+#include "Expression.hpp"
+#include "meta.hpp"
 #include <stdexcept>
 
 Lexer::Lexer(std::string expr) {
@@ -12,7 +13,7 @@ Lexer::~Lexer() { expr.erase(); }
 
 Token Lexer::getToken() {
     Token token = ILLEGAL_TOKEN;
-    while (index < length && (expr[ index ] == ' ' || expr[ index ] == '\t')) {
+    while (index < length && (expr[index] == ' ' || expr[index] == '\t')) {
         index++;
     }
 
@@ -20,7 +21,7 @@ Token Lexer::getToken() {
         return TOK_NULL;
     }
 
-    switch (expr[ index ]) {
+    switch (expr[index]) {
     case '+':
         token = TOK_PLUS;
         index++;
@@ -48,9 +49,9 @@ Token Lexer::getToken() {
         break;
 
     default:
-        if (std::isdigit(expr[ index ])) {
+        if (std::isdigit(expr[index])) {
             int numStartIndex = index;
-            while (index < length && isdigit(expr[ index ]))
+            while (index < length && isdigit(expr[index]))
                 index++;
             std::string numStr =
                 expr.substr(numStartIndex, index - numStartIndex);

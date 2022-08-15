@@ -2,7 +2,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "expression.hpp"
+#include "Expression.hpp"
 #include <string>
 
 enum Token {
@@ -17,11 +17,6 @@ enum Token {
     TOK_CPAREN,
     TOK_DOUBLE,
 
-};
-
-class RuntimeContext {
-public:
-    RuntimeContext(){};
 };
 
 class Lexer {

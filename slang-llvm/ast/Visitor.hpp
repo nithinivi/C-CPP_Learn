@@ -6,6 +6,7 @@ class IExprVisitor;
 
 #ifndef VISITOR_H
 #define VISITOR_H
+
 #include "Symbol.hpp"
 
 class IExprVisitor {

@@ -2,9 +2,9 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
+#include "Meta.hpp"
 #include "Symbol.hpp"
 #include "Visitor.hpp"
-#include "meta.hpp"
 
 class Expr //
 {

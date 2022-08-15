@@ -1,4 +1,4 @@
-#if !defined(META_HPP)
+#ifndef META_HPP
 #define META_HPP
 
 enum OPERATOR { ILLEGAL = -1, PLUS, MINUS, MUL, DIV };
