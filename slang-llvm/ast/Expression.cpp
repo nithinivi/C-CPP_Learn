@@ -3,9 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include "../contexts/Symbol.hpp"
 #include "../meta/Meta.hpp"
 #include "Expression.hpp"
+#include "Symbol.hpp"
 #include "Visitor.hpp"
 
 Expr::Expr() {}

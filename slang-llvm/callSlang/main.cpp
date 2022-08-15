@@ -1,8 +1,7 @@
 #include <iostream>
 
-#include "../ast/Expression.hpp"
-#include "../frontend/Parser.hpp"
-// #include "../frontend/Parser.hpp"
+#include "Expression.hpp"
+#include "Parser.hpp"
 
 int main(int argc, char* argv[]) {
     std::string expr_string = "20/5*2+4";
