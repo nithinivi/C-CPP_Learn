@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 
+#include "../contexts/Context.hpp"
 #include "../meta/Meta.hpp"
 #include "Expression.hpp"
 #include "Symbol.hpp"
@@ -14,8 +15,8 @@ Expr::Expr() {}
 NumericConstant::NumericConstant(double value) { this->value = value; };
 NumericConstant::~NumericConstant(){};
 
-Symbol NumericConstant::accept(IExprVisitor& expr_visitor) {
-    return expr_visitor.visit(*this);
+Symbol NumericConstant::accept(Context ctx, IExprVisitor& expr_visitor) {
+    return expr_visitor.visit(ctx, *this);
 }
 
 double NumericConstant::getValue() { return value; }
@@ -29,8 +30,8 @@ BinaryExpr::BinaryExpr(Expr* left, Expr* right, OPERATOR op) {
 }
 BinaryExpr::~BinaryExpr() {}
 
-Symbol BinaryExpr::accept(IExprVisitor& expr_visitor) {
-    return expr_visitor.visit(*this);
+Symbol BinaryExpr::accept(Context ctx, IExprVisitor& expr_visitor) {
+    return expr_visitor.visit(ctx, *this);
 }
 
 Expr& BinaryExpr::getLeft() { return *left; }
@@ -44,8 +45,8 @@ UnaryExpr::UnaryExpr(Expr* exp, OPERATOR op) {
     this->op = op;
 }
 UnaryExpr::~UnaryExpr() {}
-Symbol UnaryExpr::accept(IExprVisitor& expr_visitor) {
-    return expr_visitor.visit(*this);
+Symbol UnaryExpr::accept(Context ctx, IExprVisitor& expr_visitor) {
+    return expr_visitor.visit(ctx, *this);
 }
 
 Expr& UnaryExpr::getExp() { return *exp; }

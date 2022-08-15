@@ -2,7 +2,7 @@
 #include "../meta/Meta.hpp"
 #include <string>
 
-#if !defined(SYMBOL_HPP)
+#ifndef SYMBOL_HPP
 #define SYMBOL_HPP
 
 class Symbol {

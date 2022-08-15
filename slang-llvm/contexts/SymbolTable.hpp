@@ -15,8 +15,9 @@ public:
     SymbolTable();
     ~SymbolTable() { delete &symbolTable; };
 
-    void addSymbol(Symbol symbol) { symbolTable[symbol.getName()] = symbol; };
+    void setSymbol(Symbol symbol) { symbolTable[symbol.getName()] = symbol; };
     Symbol getSymbol(std::string name) { return symbolTable[name]; };
+    
 };
 
 #endif // SYMBOLTABLE_HPP

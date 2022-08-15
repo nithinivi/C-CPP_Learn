@@ -1,6 +1,6 @@
 #include "Parser.hpp"
-#include "../ast/Expression.hpp"
 #include "../meta/Meta.hpp"
+#include "Expression.hpp"
 #include <stdexcept>
 
 Lexer::Lexer(std::string expr) {

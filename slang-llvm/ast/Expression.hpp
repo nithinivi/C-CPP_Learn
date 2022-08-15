@@ -2,6 +2,7 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
+#include "../contexts/Context.hpp"
 #include "../contexts/Symbol.hpp"
 #include "../meta/Meta.hpp"
 #include "Visitor.hpp"
@@ -14,7 +15,7 @@ protected:
 public:
     Expr();
     virtual ~Expr() = default;
-    virtual Symbol accept(IExprVisitor& expr_visitor) = 0;
+    virtual Symbol accept(Context context, IExprVisitor& expr_visitor) = 0;
     virtual Type getType() { return type; };
     virtual void setType(Type type) { this->type = type; };
 };
@@ -25,7 +26,7 @@ class NumericConstant : public Expr {
 public:
     NumericConstant(double value);
     ~NumericConstant();
-    Symbol accept(IExprVisitor& expr_visitor);
+    Symbol accept(Context context, IExprVisitor& expr_visitor);
     double getValue();
 };
 
@@ -40,7 +41,7 @@ public:
     Expr& getLeft();
     Expr& getRight();
     OPERATOR getOp();
-    Symbol accept(IExprVisitor& expr_visitor);
+    Symbol accept(Context context, IExprVisitor& expr_visitor);
 };
 
 class UnaryExpr : public Expr {
@@ -53,7 +54,7 @@ public:
     ~UnaryExpr();
     Expr& getExp();
     OPERATOR getOp();
-    Symbol accept(IExprVisitor& expr_visitor);
+    Symbol accept(Context context, IExprVisitor& expr_visitor);
 };
 
 #endif // DEBUG
