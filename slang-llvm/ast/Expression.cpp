@@ -3,9 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include "../contexts/Context.hpp"
-#include "../meta/Meta.hpp"
+#include "Context.hpp"
 #include "Expression.hpp"
+#include "Meta.hpp"
 #include "Symbol.hpp"
 #include "Visitor.hpp"
 

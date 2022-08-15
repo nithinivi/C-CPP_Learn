@@ -2,9 +2,9 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include "../contexts/Context.hpp"
-#include "../contexts/Symbol.hpp"
-#include "../meta/Meta.hpp"
+#include "Context.hpp"
+#include "Meta.hpp"
+#include "Symbol.hpp"
 #include "Visitor.hpp"
 
 class Expr //

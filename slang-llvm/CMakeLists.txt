@@ -13,3 +13,8 @@ add_subdirectory(ast)
 add_subdirectory(frontend)
 add_subdirectory(callSlang)
 
+
+target_include_directories(contexts PUBLIC
+    ${PROJECT_SOURCE_DIR} 
+    ${PROJECT_BINARY_DIR}
+    )

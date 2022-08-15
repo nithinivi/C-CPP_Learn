@@ -4,8 +4,8 @@ class BinaryExpr;
 class UnaryExpr;
 class IExprVisitor;
 
-#include "../contexts/Context.hpp"
-#include "../contexts/Symbol.hpp"
+#include "Context.hpp"
+#include "Symbol.hpp"
 
 #ifndef VISITOR_H
 #define VISITOR_H
