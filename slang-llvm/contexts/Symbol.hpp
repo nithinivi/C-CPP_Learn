@@ -1,9 +1,8 @@
 // the symbol as the return for each node
-#include "../meta/Meta.hpp"
-#include <string>
-
 #ifndef SYMBOL_HPP
 #define SYMBOL_HPP
+#include "../meta/Meta.hpp"
+#include <string>
 
 class Symbol {
 private:
