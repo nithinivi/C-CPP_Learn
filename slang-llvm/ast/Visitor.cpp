@@ -13,7 +13,7 @@ using namespace llvm;
 
 IRVisitor::IRVisitor() {
     TheContext = new LLVMContext();
-    TheModule = new Module("my cool jit", *TheContext);
+    TheModule = new Module("slangcool jit", *TheContext);
 
     // Create a new builder for the module.
     Builder = new IRBuilder<>(*TheContext);
@@ -55,7 +55,8 @@ Symbol& IRVisitor::visit(Context ctx, BinaryExpr& binaryExpr) {
     default:
         throw std::runtime_error("invalid binary operator ");
     }
-    return;
+
+    return left;
 }
 
 Symbol& IRVisitor::visit(Context ctx, UnaryExpr& unaryExpr) {
@@ -76,5 +77,5 @@ Symbol& IRVisitor::visit(Context ctx, UnaryExpr& unaryExpr) {
     default:
         throw std::runtime_error("invalid uinary operator ");
     }
-    return;
+    return exp;
 }
