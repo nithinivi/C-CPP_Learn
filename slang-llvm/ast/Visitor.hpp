@@ -1,5 +1,4 @@
-#include <map>
-#include <string>
+
 // forward declaration
 class NumericConstant;
 class BinaryExpr;
@@ -11,13 +10,8 @@ class IExprVisitor;
 
 #include "Context.hpp"
 #include "Symbol.hpp"
-
-#include "llvm/IR/IRBuilder.h"
-#include "llvm/IR/LLVMContext.h"
-#include "llvm/IR/Module.h"
-#include "llvm/IR/Value.h"
-
-using namespace llvm;
+#include <map>
+#include <string>
 
 class IExprVisitor {
 public:
@@ -28,12 +22,6 @@ public:
 
 class IRVisitor : public IExprVisitor {
 
-protected:
-    LLVMContext TheContext;
-    IRBuilder<> Builder(TheContext);
-    Module TheModule;
-    std::map<std::string, Value*> NamedValues;
-
 public:
     IRVisitor();
     ~IRVisitor();
@@ -41,6 +29,6 @@ public:
     Symbol visit(Context ctx, NumericConstant& num);
     Symbol visit(Context ctx, BinaryExpr& bin);
     Symbol visit(Context ctx, UnaryExpr& un);
-}
+};
 
 #endif // !1

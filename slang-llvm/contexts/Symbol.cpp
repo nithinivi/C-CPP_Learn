@@ -3,9 +3,9 @@
 Symbol::Symbol() {}
 Symbol::~Symbol() {}
 
-Symbol::Symbol(Type type_) { this->type = type_; }
+Symbol::Symbol(TypeInfo type_) { this->type = type_; }
 
-Symbol::Symbol(std::string name, Type type) {
+Symbol::Symbol(std::string name, TypeInfo type) {
     this->name = name;
     this->type = type;
 }
@@ -13,8 +13,8 @@ Symbol::Symbol(std::string name, Type type) {
 std::string Symbol::getName() { return name; };
 void Symbol::setName(std::string name) { this->name = name; };
 
-Type Symbol::getType() { return type; };
-void Symbol::setType(Type type) { this->type = type; };
+TypeInfo Symbol::getType() { return type; };
+void Symbol::setType(TypeInfo type) { this->type = type; };
 
 std::string Symbol::getStringValue() { return stringValue; }
 void Symbol::setStringValue(std::string str) { this->stringValue = str; }

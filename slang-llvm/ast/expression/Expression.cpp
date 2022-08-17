@@ -10,16 +10,6 @@
 #include "Visitor.hpp"
 
 Expr::Expr() {}
-// Numeric constants implementations
-
-NumericConstant::NumericConstant(double value) { this->value = value; };
-NumericConstant::~NumericConstant(){};
-
-Symbol NumericConstant::accept(Context ctx, IExprVisitor& expr_visitor) {
-    return expr_visitor.visit(ctx, *this);
-}
-
-double NumericConstant::getValue() { return value; }
 
 // Binary Expression  implementations
 

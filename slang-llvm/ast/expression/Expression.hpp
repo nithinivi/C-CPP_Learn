@@ -1,3 +1,4 @@
+class IExprVisitor;
 
 #ifndef DEBUG_H
 #define DEBUG_H
@@ -5,29 +6,18 @@
 #include "Context.hpp"
 #include "Meta.hpp"
 #include "Symbol.hpp"
-#include "Visitor.hpp"
 
 class Expr //
 {
 protected:
-    Type type;
+    TypeInfo Type;
 
 public:
     Expr();
     virtual ~Expr() = default;
     virtual Symbol accept(Context context, IExprVisitor& expr_visitor) = 0;
-    virtual Type getType() { return type; };
-    virtual void setType(Type type) { this->type = type; };
-};
-
-class NumericConstant : public Expr {
-    double value;
-
-public:
-    NumericConstant(double value);
-    ~NumericConstant();
-    Symbol accept(Context context, IExprVisitor& expr_visitor);
-    double getValue();
+    virtual TypeInfo getType() { return Type; };
+    virtual void setType(TypeInfo Type) { this->Type = Type; };
 };
 
 class BinaryExpr : public Expr {

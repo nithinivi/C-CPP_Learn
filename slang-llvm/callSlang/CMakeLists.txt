@@ -10,6 +10,11 @@ PRIVATE
     frontend
 )
 
+
+# target_link_libraries(slangLLVM )
+
+
+
 #lets use ankels to have cleaner imports 
 # Needs to import and pass path to compiler 
 # target_include_directories(slangLLVM
