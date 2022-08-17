@@ -2,6 +2,10 @@
 #define CONTEXT_HPP
 #include "SymbolTable.hpp"
 
+#include "llvm/IR/LLVMContext.h"
+
+static LLVMContext* TheContext;
+
 class Context {
 protected:
     SymbolTable* symbolTable;

@@ -1,8 +1,13 @@
 // the symbol as the return for each node
 #ifndef SYMBOL_HPP
 #define SYMBOL_HPP
+
 #include "Meta.hpp"
+
+#include "llvm/IR/Value.h"
 #include <string>
+
+using namespace llvm;
 
 class Symbol {
 private:
@@ -11,6 +16,7 @@ private:
     std::string stringValue;
     double dblValue;
     bool boolenValue;
+    Value* llvmValue;
 
 public:
     Symbol();
@@ -32,6 +38,9 @@ public:
 
     bool getboolValue();
     void setBoolValue(bool bl);
+
+    llvm::Value* getLlvmValue();
+    void setLlvmValue(llvm::Value* val);
 };
 
 #endif // SYMBOL_HPP

@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_BUILD_TYPE "Debug")
 
 
-set(LLVM_DIR /usr/lib/llvm-12/lib/cmake/llvm)
+set(LLVM_DIR /usr/lib/llvm-14/lib/cmake/llvm)
 
 find_package(LLVM REQUIRED CONFIG
              PATHS ${search_paths}

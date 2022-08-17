@@ -20,7 +20,7 @@ BinaryExpr::BinaryExpr(Expr* left, Expr* right, OPERATOR op) {
 }
 BinaryExpr::~BinaryExpr() {}
 
-Symbol BinaryExpr::accept(Context ctx, IExprVisitor& expr_visitor) {
+Symbol& BinaryExpr::accept(Context ctx, IExprVisitor& expr_visitor) {
     return expr_visitor.visit(ctx, *this);
 }
 
@@ -35,7 +35,7 @@ UnaryExpr::UnaryExpr(Expr* exp, OPERATOR op) {
     this->op = op;
 }
 UnaryExpr::~UnaryExpr() {}
-Symbol UnaryExpr::accept(Context ctx, IExprVisitor& expr_visitor) {
+Symbol& UnaryExpr::accept(Context ctx, IExprVisitor& expr_visitor) {
     return expr_visitor.visit(ctx, *this);
 }
 

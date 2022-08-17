@@ -1,4 +1,5 @@
 #include "Symbol.hpp"
+#include "llvm/IR/Value.h"
 
 Symbol::Symbol() {}
 Symbol::~Symbol() {}
@@ -24,3 +25,6 @@ void Symbol::setdblValue(double dbl) { this->dblValue = dbl; }
 
 bool Symbol::getboolValue() { return boolenValue; }
 void Symbol::setBoolValue(bool bl) { this->boolenValue = bl; }
+
+llvm::Value* Symbol::getLlvmValue() { return llvmValue; };
+void Symbol::setLlvmValue(llvm::Value* val) { this->llvmValue = val; };

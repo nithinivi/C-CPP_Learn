@@ -6,14 +6,15 @@
 #include "Visitor.hpp"
 
 NumericConstant::NumericConstant(double value) {
-    this->info = new Symbol();
-    info->setName("");
-    info->setType(TYPE_NUMERIC);
-    info->setBoolValue(value);
+    this->symbol = new Symbol();
+    symbol->setName("");
+    symbol->setType(TYPE_NUMERIC);
+    symbol->setBoolValue(value);
 };
+
 NumericConstant::~NumericConstant(){};
 
-Symbol NumericConstant::accept(Context ctx, IExprVisitor& expr_visitor) {
+Symbol& NumericConstant::accept(Context ctx, IExprVisitor& expr_visitor) {
     return expr_visitor.visit(ctx, *this);
 }
 

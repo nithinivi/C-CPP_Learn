@@ -6,13 +6,12 @@
 #include "Symbol.hpp"
 
 class NumericConstant : public Expr {
-    Symbol* info;
     double value;
 
 public:
     NumericConstant(double value);
     ~NumericConstant();
-    Symbol accept(Context context, IExprVisitor& expr_visitor);
+    Symbol& accept(Context context, IExprVisitor& expr_visitor);
     double getValue();
 };
 

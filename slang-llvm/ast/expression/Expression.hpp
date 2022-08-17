@@ -10,14 +10,18 @@ class IExprVisitor;
 class Expr //
 {
 protected:
-    TypeInfo Type;
+    Symbol* symbol;
 
 public:
     Expr();
     virtual ~Expr() = default;
-    virtual Symbol accept(Context context, IExprVisitor& expr_visitor) = 0;
-    virtual TypeInfo getType() { return Type; };
-    virtual void setType(TypeInfo Type) { this->Type = Type; };
+    virtual Symbol& accept(Context context, IExprVisitor& expr_visitor) = 0;
+
+    Symbol& getSymbol() { return *symbol; };
+    void setSymbol(Symbol* symb) { this->symbol = symb; };
+
+    TypeInfo getType() { return symbol->getType(); }
+    void setType(TypeInfo type) { symbol->setType(type); }
 };
 
 class BinaryExpr : public Expr {
@@ -31,7 +35,7 @@ public:
     Expr& getLeft();
     Expr& getRight();
     OPERATOR getOp();
-    Symbol accept(Context context, IExprVisitor& expr_visitor);
+    Symbol& accept(Context context, IExprVisitor& expr_visitor);
 };
 
 class UnaryExpr : public Expr {
@@ -44,7 +48,7 @@ public:
     ~UnaryExpr();
     Expr& getExp();
     OPERATOR getOp();
-    Symbol accept(Context context, IExprVisitor& expr_visitor);
+    Symbol& accept(Context context, IExprVisitor& expr_visitor);
 };
 
 #endif // DEBUG
