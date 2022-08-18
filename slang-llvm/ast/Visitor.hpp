@@ -9,6 +9,7 @@ class IExprVisitor;
 #define VISITOR_H
 
 #include "llvm/IR/IRBuilder.h"
+#include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Value.h"
 
@@ -17,6 +18,7 @@ class IExprVisitor;
 #include <map>
 #include <string>
 
+// static LLVMContext* TheContext;
 class IExprVisitor {
 
 public:
@@ -28,11 +30,13 @@ public:
 class IRVisitor : public IExprVisitor {
     Module* TheModule;
     IRBuilder<>* Builder;
-    std::map<std::string, Value*> NamedValues;
+    LLVMContext* TheContext;
 
 public:
     IRVisitor();
     ~IRVisitor();
+
+    Module* getLlvmModule();
 
     Symbol& visit(Context ctx, NumericConstant& num);
     Symbol& visit(Context ctx, BinaryExpr& bin);

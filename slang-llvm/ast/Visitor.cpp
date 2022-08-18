@@ -12,13 +12,15 @@
 using namespace llvm;
 
 IRVisitor::IRVisitor() {
-    TheContext = new LLVMContext();
-    TheModule = new Module("slangcool jit", *TheContext);
+    this->TheContext = new LLVMContext();
+    this->TheModule = new Module("slangcool jit", *TheContext);
 
     // Create a new builder for the module.
-    Builder = new IRBuilder<>(*TheContext);
+    this->Builder = new IRBuilder<>(*TheContext);
 }
 IRVisitor::~IRVisitor() {}
+
+Module* IRVisitor::getLlvmModule() { return TheModule; }
 
 Symbol& IRVisitor::visit(Context ctx, NumericConstant& num) {
     Value* constantFp = ConstantFP::get(*TheContext, APFloat(num.getValue()));
