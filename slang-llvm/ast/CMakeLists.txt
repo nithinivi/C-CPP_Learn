@@ -1,6 +1,9 @@
 set(SOURCE_FILES Visitor.cpp)
 add_library(ast ${SOURCE_FILES})
 
+add_subdirectory(expression)
+
+
 target_link_libraries(ast 
 PUBLIC 
     meta
@@ -22,5 +25,3 @@ PUBLIC
     ${PROJECT_SOURCE_DIR}/ast/expression
     
 )
-
-add_subdirectory(expression)

@@ -1,14 +1,14 @@
 set(SOURCE_FILES Expression.cpp NumericExpression.cpp)
-add_library(experssion ${SOURCE_FILES})
+add_library(expression ${SOURCE_FILES})
 
 
-target_link_libraries(experssion
+target_link_libraries(expression
 PUBLIC
     ast
 )
     
 # get the include dirs 
-target_include_directories(experssion 
+target_include_directories(expression 
 INTERFACE  
     .
 PUBLIC 
