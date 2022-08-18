@@ -13,7 +13,7 @@ using namespace llvm;
 
 IRVisitor::IRVisitor() {
     this->TheContext = new LLVMContext();
-    this->TheModule = new Module("slangcool jit", *TheContext);
+    this->TheModule = new Module("SLANG JIT", *TheContext);
 
     // Create a new builder for the module.
     this->Builder = new IRBuilder<>(*TheContext);

@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.16.3)
 
+set(CMAKE_C_COMPILER /usr/bin/clang-14) 
+set(CMAKE_CXX_COMPILER /usr/bin/clang++-14)
+
 # set the project name
 # https://stackoverflow.com/questions/71740678/cmake-error-in-findterminfo-with-clang-15-on-macos
 project(slangLLvm VERSION 1.0 LANGUAGES C CXX)

@@ -1,7 +1,8 @@
 
 all: 
-	cmake -S . -B build
-	$(MAKE) -C build 
+	cmake -S . -B build -G Ninja
+	cmake --build build
+
 
 dep:
 	cd build && cmake .. --graphviz=graph.dot && dot -Tpng graph.dot -o graphImage.png 
