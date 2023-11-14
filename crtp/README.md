@@ -14,9 +14,9 @@ gcc ./mixin.cpp   && ./a.exe
 gcc ./static_interfaces.cpp   && ./a.exe 
 ```
 
+## References
 
- ## References
- 
- - <https://www.fluentcpp.com/2017/05/19/crtp-helper/>
- - <https://stackoverflow.com/questions/262254/crtp-to-avoid-dynamic-polymorphism/262984#262984>
- - <https://en.wikipedia.org/wiki/Template_metaprogramming#Static_polymorphism>
+- <https://eli.thegreenplace.net/2011/05/17/the-curiously-recurring-template-pattern-in-c/>
+- <https://www.fluentcpp.com/2017/05/19/crtp-helper/>
+- <https://stackoverflow.com/questions/262254/crtp-to-avoid-dynamic-polymorphism/262984#262984>
+- <https://en.wikipedia.org/wiki/Template_metaprogramming#Static_polymorphism>
