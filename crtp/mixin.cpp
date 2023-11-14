@@ -15,16 +15,16 @@ struct CRTP
 };
 
 template <typename T>
-struct LogicalFunctions : public CRTP<T>
+struct EqualityOperators : public CRTP<T>
 {
-    bool operator==(const LogicalFunctions& rhs) const
+    bool operator==(const EqualityOperators& rhs) const
     {
         const auto rhs_ = this->like_underlying(rhs);
         const auto lhs_ = this->underlying();
         return !(lhs_ < rhs_ || rhs_ < lhs_);
     }
 
-    bool operator!=(const LogicalFunctions& rhs) const
+    bool operator!=(const EqualityOperators& rhs) const
     {
         const auto rhs_ = this->like_underlying(rhs);
         const auto lhs_ = this->underlying();
@@ -32,24 +32,24 @@ struct LogicalFunctions : public CRTP<T>
     }
 };
 
-struct Drevied : public LogicalFunctions<Drevied>
+struct Integer : public EqualityOperators<Integer>
 {
     int m_value;
-    Drevied(const int value) : m_value{value} {}
+    Integer(const int value) : m_value{value} {}
 
-    bool operator<(const Drevied& rhs) const { return m_value < rhs.m_value; }
+    bool operator<(const Integer& rhs) const { return m_value < rhs.m_value; }
 };
 
-Drevied getValue()
+Integer getInteger()
 {
     static int cur_value = 0;
-    return Drevied{++cur_value};
+    return Integer{++cur_value};
 };
 
 int main()
 {
-    auto a = getValue();
-    auto b = getValue();
+    auto a = getInteger();
+    auto b = getInteger();
     printf("%d \n", b != a);
     printf("%d \n", b == a);
     printf("%d \n", a == a);

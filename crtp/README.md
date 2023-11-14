@@ -3,7 +3,7 @@
 The Curiously Recurring Template Pattern (CRTP) is a C++ idiom .
 
 ```shell
-gcc main.cpp   && ./a.exe 
+gcc mixin.cpp   && ./a.exe 
 ```
 
  -- Reference
